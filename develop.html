@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <link rel="stylesheet" media="screen" type="text/css" href="screen.css"/>
+    <link rel="icon" type="image/png" href="images/waveform.png"/>
+    <link rel="shortcut" type="image/png" href="images/waveform.png"/>
+    <title>Vamp Plugins</title>
+    <meta name="robots" content="index"/>
+    <meta name="keywords" content="vamp plugin api plugins sonic visualiser visualizer visualise visualize audio music spectrogram feature extraction feapi vsi dssi"/>
+    <meta name="description" content="Vamp is a system for plugins that extract feature information from audio data."/>
+  </head>
+  <body>
+      <h1 id="header"><span>Vamp Plugins</span></h1>
+
+      <div id="nav">
+      <ul>
+      <li class="first"><a href="index.html">Home</a></li>
+      <li><a href="rationale.html">Rationale</a></li>
+      <li><a href="download.html">Download Plugins</a></li>
+      <li><a href="develop.html">Make Plugins</a></li>
+      <li><a href="http://vamp-plugins.org/forum/">Forum</a></li>
+      </ul></div>
+
+      <h2 id="firstpara">Developing Vamp plugins and hosts</h2>
+
+	<p><i>Hosted by <a href="http://sourceforge.net/projects/vamp/"><img align="center"
+	      src="http://sourceforge.net/sflogo.php?group_id=192001&type=1"
+width="88" height="31" border="0" alt="SourceForge.net Logo"/></a></i></p>
+
+      <p>Vamp is a very easy system to develop plugins for, as it has
+      a standard cross-platform SDK which includes API documentation,
+      example plugins, ready-to-use C++ base classes, the C API
+      header, and a test host.</p>
+
+      <p>The formal Vamp API is defined in C for the greatest level of
+      binary compatibility.  However, plugins and hosts are strongly
+      encouraged to make use of the set of C++ base classes provided.
+      This is particularly advisable since the values returned by a
+      plugin may have relatively complex structures.</p>
+
+      <ul><li>Download the Vamp plugin SDK (current version 1.3):
+
+      <ul><li>The development headers and source code: <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-1.3.tar.gz">Gzipped tar file</a> or <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-1.3.zip">ZIP file</a> (the contents are identical).</li>
+
+      <li>Pre-compiled library and host binaries for <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-1.3-binaries-win32-mingw32.zip">Windows (MinGW)</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-1.3-binaries-osx-universal.tar.gz">OS/X</a> and <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-1.3-binaries-i686-linux.tar.gz">Linux</a>.</li>
+
+      <li><a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-1.3-docs.tar.gz">API documentation bundle</a>.</li>
+
+      <li>Example plugin binaries for <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-1.3-win32.zip">Windows</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-1.3-osx-universal.tar.gz">OS/X</a> and <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-1.3-i686-linux.tar.gz">Linux</a>.</li>
+
+      <li><a href="http://sourceforge.net/project/showfiles.php?group_id=192001&package_id=225765">The SourceForge download area</a> for any files not listed above.</li>
+
+      </ul>
+
+      <br>
+
+      <li><b>New!</b> Read the Vamp plugin SDK <a href="guide.pdf">Programmers
+      Guide</a>!</li>
+
+      <li>Read <a href="vamp-programmer-presentation.pdf">a presentation</a> about the principles of Vamp plugins for
+      potential developers.</li>
+
+      <li><a href="code-doc/index.html">Read the API documentation online</a>.  Your plugins will normally derive from <a href="code-doc/classVamp_1_1Plugin.html">the Vamp::Plugin class</a>.</li>
+
+      <li><a href="http://vamp.svn.sourceforge.net/viewvc/vamp/vamp-plugin-sdk/trunk/README?view=markup">Read the README file for the SDK</a>.</li>
+
+      <li>Have a look at a simple example plugin: <a href="http://vamp.svn.sourceforge.net/viewvc/*checkout*/vamp/vamp-plugin-sdk/trunk/examples/ZeroCrossing.h">header</a>, <a href="http://vamp.svn.sourceforge.net/viewvc/*checkout*/vamp/vamp-plugin-sdk/trunk/examples/ZeroCrossing.cpp">source file</a>.
+
+      <li><a href="http://vamp.svn.sourceforge.net/viewvc/vamp/vamp-plugin-sdk/trunk/">Browse the SDK and examples code</a> in the Subversion repository.</li>
+
+      </ul>
+
+      <p>The entire SDK is published under a very permissive BSD-style
+      <a
+      href="http://vamp.svn.sourceforge.net/viewvc/vamp/vamp-plugin-sdk/trunk/COPYING">license</a>.
+      You are encouraged to copy from it wholesale, whether developing
+      open-source or proprietary plugin or host software.</p>
+
+      <h3>Mailing list and forum</h3>
+
+      <p>Vamp plugin and host development may be discussed on the <a href="http://sourceforge.net/mail/?group_id=192001">vamp-devel list</a> and the <a href="http://vamp-plugins.org/forum/">Vamp plugins forum</a>.</p>
+
+    </body>
+</html>

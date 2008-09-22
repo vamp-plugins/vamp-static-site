@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <link rel="stylesheet" media="screen" type="text/css" href="screen.css"/>
+    <link rel="icon" type="image/png" href="images/waveform.png"/>
+    <link rel="shortcut" type="image/png" href="images/waveform.png"/>
+    <title>Vamp Plugins</title>
+    <meta name="robots" content="index"/>
+    <meta name="keywords" content="vamp plugin api plugins sonic visualiser visualizer visualise visualize audio music spectrogram feature extraction feapi vsi dssi"/>
+    <meta name="description" content="Vamp is a system for plugins that extract feature information from audio data."/>
+  </head>
+  <body>
+      <h1 id="header"><span>Vamp Plugins</span></h1>
+
+      <div id="nav">
+      <ul>
+      <li class="first"><a href="index.html">Home</a></li>
+      <li><a href="rationale.html">Rationale</a></li>
+      <li><a href="download.html">Download Plugins</a></li>
+      <li><a href="develop.html">Make Plugins</a></li>
+      <li><a href="http://vamp-plugins.org/forum/">Forum</a></li>
+      </ul></div>
+
+      <h2 id="firstpara">The Vamp audio analysis plugin system</h2>
+      
+      <p >Vamp is an audio processing plugin system for
+      plugins that extract descriptive information from audio data
+      &mdash; typically referred to as <i>audio analysis plugins</i>
+      or <i>audio feature extraction plugins</i>.</p>
+
+      <img style="float:right;padding-left:1em;padding-top:0em" src="images/vamp-overview-webscale.png" alt="Freehand sketch of a Vamp plugin in its natural habitat">
+
+      <p><b>9th July 2008:</b> Version 1.3 of the Vamp plugin SDK is now
+      available.<br>See the <a
+      href="develop.html">developers</a> page for more
+      information.</p>
+
+      <ul>
+
+      <li><b>Get some plugins!</b><br><a href="download.html">Find links to downloadable Vamp plugins here</a>.</li>
+
+      <li><b>Do something with them!</b><br>  Vamp plugins are used for audio analysis in <a href="http://www.sonicvisualiser.org/">Sonic Visualiser</a> and <a href="http://audacity.sourceforge.net/">Audacity beta releases</a>, and may be run from a command line with the host included with the Vamp SDK.</li>
+
+      <li><b>Developers and DSP researchers!</b><br>Vamp is a nice API to develop with.  <a href="develop.html">Read more and get the SDK here</a>.</li>
+      </ul>    
+
+      <p>Just like an audio effects plugin (such as a VST), a Vamp
+      plugin is a binary module that can be loaded up by a host
+      application and fed audio data.  However, unlike an effects
+      plugin, a Vamp plugin outputs not processed audio but some sort
+      of symbolic information.  Typical things that a Vamp plugin
+      might calculate include the locations of moments such as note onset
+      times, visual representations of the audio such as histograms,
+      or curve data such as power or fundamental frequency.  <a
+      href="rationale.html">Read more about the rationale for Vamp</a>.</p>
+
+	<div id="logoblock">
+
+	<table width="100%" border="0" cellpadding="0" cellspacing="10"/>
+	<tr>
+	<td><a href="http://www.elec.qmul.ac.uk/digitalmusic/"><img src="images/qm-logo.png" width="224" height="95" alt="Queen Mary logo" border=0/></a></td>
+	<td><a href="http://www.semanticaudio.org/"><img src="images/simac-logo.png" width="232" height="96" alt="SIMAC logo" border=0/></a></td>
+	<td><a href="http://www.easaier.org/"><img src="images/easaier-logo.png" width="232" height="71" alt="EASAIER logo" border=0/></a></td>
+	</tr>
+	<tr><td>Developed at the Centre for Digital
+	    Music, Queen Mary, University of London.</td>
+	<td>Partially funded
+	    by the European Commission through the SIMAC project
+	    IST-FP6-507142.</td>
+	<td>Partially funded
+	    by the European Commission through the EASAIER project
+	    IST-FP6-033902.</td>
+	</tr>
+	</table>
+	</div>
+    </body>
+</html>

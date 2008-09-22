@@ -1,0 +1,6 @@
+<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginBufferingAdapter.html" title="PluginBufferingAdapter is a Vamp plugin adapter that allows plugins to be used by..." alt="" coords="652,6,903,30">
+<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginChannelAdapter.html" title="PluginChannelAdapter is a Vamp plugin adapter that implements a policy for management..." alt="" coords="655,54,900,78">
+<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginInputDomainAdapter.html" title="PluginInputDomainAdapter is a Vamp plugin adapter that converts time&#45;domain input..." alt="" coords="641,102,913,126">
+<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginLoader_1_1Impl_1_1PluginDeletionNotifyAdapter.html" title="Vamp::HostExt::PluginLoader::Impl::PluginDeletionNotifyAdapter" alt="" coords="580,150,975,174">
+<area shape="rect" href="$classVamp_1_1Plugin.html" title="Vamp::Plugin is a base class for plugin instance classes that provide feature extraction..." alt="" coords="181,78,280,102">
+<area shape="rect" href="$classVamp_1_1PluginBase.html" title="A base class for plugins with optional configurable parameters, programs, etc." alt="" coords="5,78,133,102">
