@@ -35,6 +35,12 @@ p,td,ul,ol,li,blockquote {
 h1,h2,h3,h4 { 
     font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
 }
+h3 {
+    margin-bottom: 0.2em;
+}
+h4 {
+    margin-bottom: 0.1em;
+}
 #firstpara {
   border-top-width: 2px;
   border-top-style: solid;
