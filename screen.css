@@ -36,10 +36,10 @@ h1,h2,h3,h4 {
     font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
 }
 h3 {
-    padding-bottom: 0.2em;
+    margin-bottom: 0;
 }
 h4 {
-    padding-bottom: 0.1em;
+    margin-bottom: 0;
 }
 #firstpara {
   border-top-width: 2px;
