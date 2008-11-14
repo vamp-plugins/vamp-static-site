@@ -1,0 +1,302 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <link rel="stylesheet" media="screen" type="text/css" href="/screen.css"/>
+    <link rel="icon" type="image/png" href="/images/waveform.png"/>
+    <link rel="shortcut" type="image/png" href="/images/waveform.png"/>
+    <title>Vamp Example Plugins: User Documentation</title>
+    <meta name="robots" content="index"/>
+  </head>
+  <body>
+<h1 id="header"><span>Vamp Example Plugins</span></h1>
+
+<p>The <code>vamp-example-plugins</code> library contains a number of
+ <a href="http://www.vamp-plugins.org/">Vamp audio analysis
+ plugins</a> provided as part of the Vamp plugin SDK.
+
+</p>
+<p>These are simple, but sometimes useful, plugins whose source code you
+ are free to study and reuse in any proprietary or non-proprietary
+ plugins of your own without any licensing obligation.
+</p>
+<p>User documentation for the individual plugins in this library follows.
+</p>
+<div class="toc2">1. &nbsp;<a href="#amplitudefollower">Amplitude Follower</a></div>
+<div class="toc2">2. &nbsp;<a href="#fixedtempo">Simple Fixed Tempo Estimator</a></div>
+<div class="toc2">3. &nbsp;<a href="#percussiononsets">Simple Percussion Onset Detector</a></div>
+<div class="toc2">4. &nbsp;<a href="#powerspectrum">Simple Power Spectrum</a></div>
+<div class="toc2">5. &nbsp;<a href="#spectralcentroid">Spectral Centroid</a></div>
+<div class="toc2">6. &nbsp;<a href="#zerocrossing">Zero Crossings</a></div>
+
+<div class="oddcontent"><a name="amplitudefollower"></a><h2>1. &nbsp;Amplitude Follower</h2>
+
+<p><b>System identifier</b> &ndash; <code>vamp-example-plugins:amplitudefollower</code><br>
+ <b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/vamp-example-plugins#amplitudefollower">http://vamp-plugins.org/rdf/plugins/vamp-example-plugins#amplitudefollower</a>
+</p>
+<p>Amplitude Follower tracks and returns the amplitude of the audio
+ signal sample by sample, returning peak values block by block.
+</p>
+</div><div class="evencontent"><a name="toc2"></a><h3>1.1. &nbsp;Parameters</h3>
+
+<p><b>Attack time</b> (seconds) &ndash; The 60dB convergence time for an increase in amplitude.<br>
+ <b>Release time</b> (seconds) &ndash; The 60dB convergence time for a decrease in amplitude.
+</p>
+<p>For example, if you feed the plugin with a simple step function that
+ jumps from level A to level B, then the output will start off as A,
+ then at the moment of stepping it will start to converge exponentially
+ to B, reaching with 60dB of the actual value within the time specified
+ by the Attack time parameter.
+</p>
+<p>Similarly, if the plugin's input then steps down from B to A, the
+ output will start converging at the moment of stepping, reaching
+ within 60dB of the new value within the time specified by the Release
+ time parameter.
+</p>
+</div><div class="oddcontent"><a name="toc3"></a><h3>1.2. &nbsp;Outputs</h3>
+
+</div><div class="evencontent"><a name="toc4"></a><h4>1.2.1. &nbsp;Amplitude</h4>
+
+<p>The peak tracked amplitude (in volts) for the current processing block.
+</p>
+</div><div class="oddcontent"><a name="toc5"></a><h3>1.3. &nbsp;References and Credits</h3>
+
+<p>Amplitude Follower uses a method from the SuperCollider audio
+ processing language.  It was implemented as a Vamp plugin by Dan
+ Stowell.
+</p>
+</div><div class="evencontent"><a name="fixedtempo"></a><h2>2. &nbsp;Simple Fixed Tempo Estimator</h2>
+
+<p><b>System identifier</b> &ndash; <code>vamp-example-plugins:fixedtempo</code><br>
+ <b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/vamp-example-plugins#fixedtempo">http://vamp-plugins.org/rdf/plugins/vamp-example-plugins#fixedtempo</a>
+</p>
+<p>Simple Fixed Tempo Estimator analyses a fragment of audio and
+ estimates its tempo.  It assumes that its input is of fixed tempo, and
+ it analyses only the first (small but configurable number of) seconds
+ before returning a result, discarding all subsequent input.
+</p>
+<p>The plugin calculates an overall energy rise function across a series
+ of short frequency-domain input frames, takes the autocorrelation of
+ this function, filters it to stress possible metrical patterns,
+ locates peaks, and converts from autocorrelation lag to the
+ corresponding tempo.
+</p>
+<p>The filtering process involves searching for peaks at simple
+ metrically related intervals (at a given autocorrelation lag as well
+ as at 0.5, 2, and 4 times that lag), boosting each peak that shows
+ strong related peaks.  A simplistic perceptual curve is also applied
+ in order to increase the probability of detecting a "likely" tempo.
+ For improved tempo precision, each tempo with strong related peaks is
+ averaged with the tempi calculated from those peaks.
+</p>
+<p>The method is best suited for 4/4 pop and dance rhythms.
+</p>
+<p>This plugin returns many of its intermediate calculations as
+ additional outputs, as well as the most favoured tempo.  Although as a
+ tempo estimator it's still fairly primitive, it is intended to provide
+ a useful example of a slightly more complex feature extraction plugin
+ than the other examples, as well as one that returns several different
+ types of output at a time.
+</p>
+</div><div class="oddcontent"><a name="toc7"></a><h3>2.1. &nbsp;Parameters</h3>
+
+<p><b>Minimum estimated tempo</b>, <b>Maximum estimated tempo</b> (bpm) &ndash; These
+ parameters control the range of values within which the tempo
+ estimator will return its estimate.
+</p>
+<p><b>Input duration to study</b> (seconds) &ndash; The tempo estimator uses only the
+ first part of its input, discarding any that follows.  This parameter
+ controls how much input it will use.  There is no value in increasing
+ this beyond 8x the duration of the slowest returned beat.  The default
+ of 10 seconds is likely to be appropriate for most purposes.
+</p>
+</div><div class="evencontent"><a name="toc8"></a><h3>2.2. &nbsp;Outputs</h3>
+
+</div><div class="oddcontent"><a name="toc9"></a><h4>2.2.1. &nbsp;Tempo</h4>
+
+<p>The tempo estimator's best guess at the tempo of its input, in beats
+ per minute.
+</p>
+<p>This is returned as a feature whose timestamp and duration cover the
+ range of the input which was used in estimating the tempo, with a
+ single value containing the tempo.
+</p>
+</div><div class="evencontent"><a name="toc10"></a><h4>2.2.2. &nbsp;Tempo candidates</h4>
+
+<p>Several guesses at the possible tempo.  This output is returned as a
+ single feature whose timestamp and duration cover the range of the
+ input which was used in estimating the tempo, with up to 10 bins
+ containing one tempo value in each bin, with the "best guess" tempo in
+ bin 0.
+</p>
+</div><div class="oddcontent"><a name="toc11"></a><h4>2.2.3. &nbsp;Detection function</h4>
+
+<p>The basic onset detection function used in tempo estimation.
+</p>
+</div><div class="evencontent"><a name="toc12"></a><h4>2.2.4. &nbsp;Autocorrelation function</h4>
+
+<p>The autocorrelation of the onset detection function.
+</p>
+</div><div class="oddcontent"><a name="toc13"></a><h4>2.2.5. &nbsp;Filtered Autocorrelation</h4>
+
+<p>The autocorrelation after filtering to boost values with possible
+ metrically related peaks and to apply perceptual weighting.  The peak
+ value of this function is the one that will be used as the "best
+ guess".
+</p>
+</div><div class="evencontent"><a name="toc14"></a><h3>2.3. &nbsp;References and Credits</h3>
+
+<p>Simple Fixed Tempo Estimator uses a method derived from work by
+ Matthew Davies: see for example M. E. P. Davies and M. D. Plumbley,
+ <i>Beat Tracking With A Two State Model</i>, in Proceedings of the IEEE
+ International Conference on Acoustics, Speech and Signal Processing
+ 2005.  This plugin, made by Chris Cannam, is only an unsubtle
+ simplification of a small part of the published method.
+</p>
+<p>The Queen Mary plugin set
+ (<a href="http://www.elec.qmul.ac.uk/digitalmusic/downloads/index.html#qm-vamp-plugins">http://www.elec.qmul.ac.uk/digitalmusic/downloads/index.html#qm-vamp-plugins</a>)
+ contains a Tempo and Beat Tracker plugin by Matthew Davies providing a
+ more realistic implementation.
+</p>
+</div><div class="oddcontent"><a name="percussiononsets"></a><h2>3. &nbsp;Simple Percussion Onset Detector</h2>
+
+<p><b>System identifier</b> &ndash; <code>vamp-example-plugins:percussiononsets</code><br>
+ <b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/vamp-example-plugins#percussiononsets">http://vamp-plugins.org/rdf/plugins/vamp-example-plugins#percussiononsets</a>
+</p>
+<p>Simple Percussion Onset Detector estimates the locations of percussive
+ onsets in the audio signal.
+</p>
+<p>The principle is to exploit the broadband nature of noisy percussive
+ onsets by identifying only those frames in which the energy rise shows
+ a broadband profile.
+</p>
+<p>The plugin takes a series of frequency domain frames, and examines
+ each frame to count the number of bins whose energy content has
+ increased by more than a certain threshold since the prior frame.
+ Frames in which this number is at a peak relative to prior and
+ following frames and also exceeds another threshold value are
+ classified as percussive onsets.
+</p>
+</div><div class="evencontent"><a name="toc16"></a><h3>3.1. &nbsp;Parameters</h3>
+
+<p><b>Energy rise threshold</b> (dB) &ndash; The rise in energy within a bin from one
+ frame to the next that is required for a bin to be counted toward the
+ detection function's bin count.  This roughly corresponds to how
+ "loud" a percussive sound must be in order to be detected.
+</p>
+<p><b>Sensitivity</b> (%) &ndash; The proportion of bins that must exceed the energy
+ rise threshold in order for an onset to be detected (at frames in
+ which the detection function peaks).  This roughly corresponds to how
+ "noisy" a percussive sound must be in order to be detected.
+</p>
+</div><div class="oddcontent"><a name="toc17"></a><h3>3.2. &nbsp;Outputs</h3>
+
+</div><div class="evencontent"><a name="toc18"></a><h4>3.2.1. &nbsp;Onsets</h4>
+
+<p>The estimated onset locations.
+</p>
+</div><div class="oddcontent"><a name="toc19"></a><h4>3.2.2. &nbsp;Detection Function</h4>
+
+<p>The energy rise detection function whose peaks were used to estimate
+ onset locations.
+</p>
+</div><div class="evencontent"><a name="toc20"></a><h3>3.3. &nbsp;References and Credits</h3>
+
+<p>The method used in Simple Percussion Onset Detector was described in
+Dan Barry, Derry Fitzgerald, Eugene Coyle and
+ Bob Lawlor, <i>Drum Source Separation using Percussive Feature Detection and
+ Spectral Modulation</i>, ISSC 2005.  The plugin was made by Chris Cannam.
+</p>
+</div><div class="oddcontent"><a name="powerspectrum"></a><h2>4. &nbsp;Simple Power Spectrum</h2>
+
+<p><b>System identifier</b> &ndash; <code>vamp-example-plugins:powerspectrum</code><br>
+ <b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/vamp-example-plugins#powerspectrum">http://vamp-plugins.org/rdf/plugins/vamp-example-plugins#powerspectrum</a>
+</p>
+<p>Simple Power Spectrum returns a power spectrum calculated from
+ windowed short-time Fourier transforms of the input audio.  (The power
+ spectrum for a frame consists of a sequence of the squares of the
+ magnitudes of the complex values for each frequency bin in the result
+ of the Fourier transform.)
+</p>
+<p>This very simple plugin is an illustration of the fact that if a
+ plugin requests frequency-domain input, its input will already be in
+ the form needed for a spectrum such as this.  The plugin has no work
+ left to do except to calculate the squared magnitude from the
+ cartesian complex representation.
+</p>
+<p>This plugin also illustrates how to return "grid-type" visualisation
+ data from a Vamp plugin.
+</p>
+</div><div class="evencontent"><a name="toc22"></a><h3>4.1. &nbsp;Parameters</h3>
+
+<p>None.
+</p>
+</div><div class="oddcontent"><a name="toc23"></a><h3>4.2. &nbsp;Outputs</h3>
+
+</div><div class="evencontent"><a name="toc24"></a><h4>4.2.1. &nbsp;Power Spectrum</h4>
+
+<p>The power spectrum calculated from the input frame.  This output
+ returns a single feature per processing block, containing
+ blocksize/2+1 power values corresponding to the FFT bins from DC to
+ Nyquist inclusive.  The DC bin is always returned.
+</p>
+</div><div class="oddcontent"><a name="spectralcentroid"></a><h2>5. &nbsp;Spectral Centroid</h2>
+
+<p><b>System identifier</b> &ndash; <code>vamp-example-plugins:spectralcentroid</code><br>
+ <b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/vamp-example-plugins#spectralcentroid">http://vamp-plugins.org/rdf/plugins/vamp-example-plugins#spectralcentroid</a>
+</p>
+<p>Spectral Centroid calculates the "centre of gravity" of the frequency
+ spectrum for each input frame.
+</p>
+</div><div class="evencontent"><a name="toc26"></a><h3>5.1. &nbsp;Parameters</h3>
+
+<p>None.
+</p>
+</div><div class="oddcontent"><a name="toc27"></a><h3>5.2. &nbsp;Outputs</h3>
+
+</div><div class="evencontent"><a name="toc28"></a><h4>5.2.1. &nbsp;Log Frequency Centroid</h4>
+
+<p>The centroid of the log-weighted frequency spectrum.  That is, the sum
+ across Fourier transform output bins of the logarithm of the bin
+ frequency multiplied by the bin magnitude, divided by the sum of the
+ bin magnitudes, and the inverse logarithm taken so as to give the
+ result as a frequency in Hz.
+</p>
+</div><div class="oddcontent"><a name="toc29"></a><h4>5.2.2. &nbsp;Linear Frequency Centroid</h4>
+
+<p>The centroid of the linear-weighted frequency spectrum.  That is, the
+ sum across Fourier transform output bins of the bin frequency
+ multiplied by the bin magnitude, divided by the sum of the bin
+ magnitudes.  The result is a frequency in Hz.
+</p>
+</div><div class="evencontent"><a name="zerocrossing"></a><h2>6. &nbsp;Zero Crossings</h2>
+
+<p><b>System identifier</b> &ndash; <code>vamp-example-plugins:zerocrossing</code><br>
+ <b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/vamp-example-plugins#zerocrossing">http://vamp-plugins.org/rdf/plugins/vamp-example-plugins#zerocrossing</a>
+</p>
+<p>Zero Crossings calculates the positions and density of "zero-crossing"
+ points in an audio waveform.  For the purposes of this plugin, that
+ means those positions at which the sampled value switches from
+ zero-or-less to greater-than-zero, or vice versa.
+</p>
+</div><div class="oddcontent"><a name="toc31"></a><h3>6.1. &nbsp;Parameters</h3>
+
+<p>None.
+</p>
+</div><div class="evencontent"><a name="toc32"></a><h3>6.2. &nbsp;Outputs</h3>
+
+</div><div class="oddcontent"><a name="toc33"></a><h4>6.2.1. &nbsp;Zero Crossing Counts</h4>
+
+<p>The number of zero-crossing points found in the current block of
+ samples, as a single-valued feature returned per processing block.
+</p>
+</div><div class="evencontent"><a name="toc34"></a><h4>6.2.2. &nbsp;Zero Crossings</h4>
+
+<p>The locations of zero-crossing points, returning one feature
+ timestamped to the zero-crossing location, without values, for each
+ crossing point.
+</p>
+<p></p>
+
+</div>
+</body>
+</html>
