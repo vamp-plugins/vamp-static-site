@@ -1,1 +1,2 @@
-<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginLoader_1_1Impl_1_1InstanceCleaner.html" title="Vamp::HostExt::PluginLoader::Impl::InstanceCleaner" alt="" coords="5,6,333,30">
+<area shape="rect" href="$classVamp_1_1PluginAdapterBase.html" title="PluginAdapter and PluginAdapterBase provide a wrapper class that a plugin library..." alt="" coords="5,5,179,32">
+<area shape="rect" href="$classVamp_1_1PluginAdapter.html" title="PluginAdapter turns a PluginAdapterBase into a specific wrapper for a particular..." alt="" coords="227,5,403,32">

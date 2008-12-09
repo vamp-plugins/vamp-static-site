@@ -1,12 +1,13 @@
-<area shape="rect" href="$classVamp_1_1Plugin.html" title="Vamp::Plugin is a base class for plugin instance classes that provide feature extraction..." alt="" coords="181,150,280,174">
-<area shape="rect" href="$classAmplitudeFollower.html" title="Example plugin implementing the SuperCollider amplitude follower function." alt="" coords="381,6,509,30">
-<area shape="rect" href="$classPercussionOnsetDetector.html" title="Example plugin that detects percussive events." alt="" coords="360,54,531,78">
-<area shape="rect" href="$classSpectralCentroid.html" title="Example plugin that calculates the centre of gravity of the frequency domain representation..." alt="" coords="387,102,504,126">
-<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginRateExtractor.html" title="Vamp::HostExt::PluginRateExtractor" alt="" coords="329,150,561,174">
-<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginWrapper.html" title="PluginWrapper is a simple base class for adapter plugins." alt="" coords="345,198,545,222">
-<area shape="rect" href="$classVamp_1_1PluginHostAdapter.html" title="PluginHostAdapter is a wrapper class that a Vamp host can use to make the C&#45;language..." alt="" coords="360,246,531,270">
-<area shape="rect" href="$classZeroCrossing.html" title="Example plugin that calculates the positions and density of zero&#45;crossing points..." alt="" coords="396,294,495,318">
-<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginBufferingAdapter.html" title="PluginBufferingAdapter is a Vamp plugin adapter that allows plugins to be used by..." alt="" coords="684,126,935,150">
-<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginChannelAdapter.html" title="PluginChannelAdapter is a Vamp plugin adapter that implements a policy for management..." alt="" coords="687,174,932,198">
-<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginInputDomainAdapter.html" title="PluginInputDomainAdapter is a Vamp plugin adapter that converts time&#45;domain input..." alt="" coords="673,222,945,246">
-<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginLoader_1_1Impl_1_1PluginDeletionNotifyAdapter.html" title="Vamp::HostExt::PluginLoader::Impl::PluginDeletionNotifyAdapter" alt="" coords="612,270,1007,294">
+<area shape="rect" href="$classVamp_1_1Plugin.html" title="Vamp::Plugin is a base class for plugin instance classes that provide feature extraction..." alt="" coords="181,183,280,209">
+<area shape="rect" href="$classAmplitudeFollower.html" title="Example plugin implementing the SuperCollider amplitude follower function." alt="" coords="365,5,493,32">
+<area shape="rect" href="$classFixedTempoEstimator.html" title="Example plugin that estimates the tempo of a short fixed&#45;tempo sample." alt="" coords="356,56,503,83">
+<area shape="rect" href="$classPercussionOnsetDetector.html" title="Example plugin that detects percussive events." alt="" coords="344,107,515,133">
+<area shape="rect" href="$classPowerSpectrum.html" title="Example plugin that returns a power spectrum calculated (trivially) from the frequency..." alt="" coords="373,157,485,184">
+<area shape="rect" href="$classSpectralCentroid.html" title="Example plugin that calculates the centre of gravity of the frequency domain representation..." alt="" coords="371,208,488,235">
+<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginWrapper.html" title="PluginWrapper is a simple base class for adapter plugins." alt="" coords="329,259,529,285">
+<area shape="rect" href="$classVamp_1_1PluginHostAdapter.html" title="PluginHostAdapter is a wrapper class that a Vamp host can use to make the C&#45;language..." alt="" coords="344,309,515,336">
+<area shape="rect" href="$classZeroCrossing.html" title="Example plugin that calculates the positions and density of zero&#45;crossing points..." alt="" coords="380,360,479,387">
+<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginBufferingAdapter.html" title="PluginBufferingAdapter is a Vamp plugin adapter that allows plugins to be used by..." alt="" coords="592,183,840,209">
+<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginChannelAdapter.html" title="PluginChannelAdapter is a Vamp plugin adapter that implements a policy for management..." alt="" coords="593,233,839,260">
+<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginInputDomainAdapter.html" title="PluginInputDomainAdapter is a Vamp plugin adapter that converts time&#45;domain input..." alt="" coords="580,284,852,311">
+<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginSummarisingAdapter.html" title="PluginSummarisingAdapter is a Vamp plugin adapter that provides summarisation methods..." alt="" coords="579,335,853,361">
