@@ -26,15 +26,19 @@ page</a>.
 
 <div class="toc2">1. &nbsp;<a href="#qm-onsetdetector">Note Onset Detector</a></div>
 <div class="toc2">2. &nbsp;<a href="#qm-tempotracker">Tempo and Beat Tracker</a></div>
-<div class="toc2">3. &nbsp;<a href="#qm-keydetector">Key Detector</a></div>
-<div class="toc2">4. &nbsp;<a href="#qm-tonalchange">Tonal Change</a></div>
-<div class="toc2">5. &nbsp;<a href="#qm-segmenter">Segmenter</a></div>
-<div class="toc2">6. &nbsp;<a href="#qm-similarity">Similarity</a></div>
-<div class="toc2">7. &nbsp;<a href="#qm-constantq">Constant-Q Spectrogram</a></div>
-<div class="toc2">8. &nbsp;<a href="#qm-chromagram">Chromagram</a></div>
-<div class="toc2">9. &nbsp;<a href="#qm-mfcc">Mel-Frequency Cepstral Coefficients</a></div>
+<div class="toc2">3. &nbsp;<a href="#qm-barbeattracker">Bar and Beat Tracker</a></div>
+<div class="toc2">4. &nbsp;<a href="#qm-keydetector">Key Detector</a></div>
+<div class="toc2">5. &nbsp;<a href="#qm-tonalchange">Tonal Change</a></div>
+<div class="toc2">6. &nbsp;<a href="#qm-adaptivespectrogram">Adaptive Spectrogram</a></div>
+<div class="toc2">7. &nbsp;<a href="#qm-transcription">Polyphonic Transcription</a></div>
+<div class="toc2">8. &nbsp;<a href="#qm-segmenter">Segmenter</a></div>
+<div class="toc2">9. &nbsp;<a href="#qm-similarity">Similarity</a></div>
+<div class="toc2">10. &nbsp;<a href="#qm-dwt">Discrete Wavelet Transform</a></div>
+<div class="toc2">11. &nbsp;<a href="#qm-constantq">Constant-Q Spectrogram</a></div>
+<div class="toc2">12. &nbsp;<a href="#qm-chromagram">Chromagram</a></div>
+<div class="toc2">13. &nbsp;<a href="#qm-mfcc">Mel-Frequency Cepstral Coefficients</a></div>
 
-<a name="qm-onsetdetector"></a><a name="qm-"></a><h2>1. Note Onset Detector</h2>
+<a name="qm-onsetdetector"></a><h2>1. Note Onset Detector</h2>
 
 <p><b>System identifier</b> &ndash;    <code>vamp:qm-vamp-plugins:qm-onsetdetector</code>
 <br><b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-onsetdetector">http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-onsetdetector</a>
@@ -100,6 +104,7 @@ page</a>.
 <p>The Note Onset Detector Vamp plugin was written by Chris Duxbury, Juan
  Pablo Bello and Christian Landone.
 </p>
+
 <a name="qm-tempotracker"></a><h2>2. Tempo and Beat Tracker</h2>
 
 <p><b>System identifier</b> &ndash;    <code>vamp:qm-vamp-plugins:qm-tempotracker</code>
@@ -112,7 +117,11 @@ page</a>.
 </p>
 <h3>Parameters</h3>
 
-<p><b>Onset Detection Function Type</b> &ndash; The method used to calculate the
+<p><b>Beat Tracking Method</b> &ndash; The method used to track beats.  The default, "New", uses a 
+
+<!-- HERE!!!! -->
+
+<p><b>Onset Detection Function Type</b> &ndash; The algorithm used to calculate the
  onset likelihood function.  The most versatile method is the default,
  "Complex Domain" (see reference, Duxbury et al 2003).  "Spectral
  Difference" may be appropriate for percussive recordings, "Phase
@@ -143,7 +152,7 @@ page</a>.
 <p><b>Beat tracking method</b>: M. E. P. Davies and M. D. Plumbley.
  <i><a href="http://www.elec.qmul.ac.uk/people/markp/2007/DaviesPlumbley07-taslp.pdf">Context-dependent beat tracking of musical audio</a></i>. In IEEE
  Transactions on Audio, Speech and Language Processing. Vol. 15, No. 3,
- pp1009-1020, 2007.  See also M. E. P. Davies and M. D. Plumbley.
+ pp1009-1020, 2007;<br>see also M. E. P. Davies and M. D. Plumbley.
  <i><a href="http://www.elec.qmul.ac.uk/people/markp/2005/DaviesPlumbley05-icassp.pdf">Beat Tracking With A Two State Model</a></i>. In Proceedings of the IEEE
  International Conference on Acoustics, Speech and Signal Processing
  (ICASSP 2005), Vol. 3, pp241-244 Philadelphia, USA, March 19-23, 2005.
@@ -163,7 +172,115 @@ page</a>.
 <p>The Tempo and Beat Tracker Vamp plugin was written by Matthew Davies
  and Christian Landone.
 </p>
-<a name="qm-keydetector"></a><h2>3. Key Detector</h2>
+
+
+<a name="qm-barbeattracker"></a><h2>3. Bar and Beat Tracker</h2>
+
+<p><b>System identifier</b> &ndash;    <code>vamp:qm-vamp-plugins:qm-barbeattracker</code>
+<br><b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-barbeattracker">http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-barbeattracker</a>
+<br><b>Links</b> &ndash; <a href="#">Back to top of library documentation</a> &ndash; <a href="http://www.elec.qmul.ac.uk/digitalmusic/downloads/index.html#qm-vamp-plugins">Download location</a>
+</p>
+
+<p>Bar and Beat Tracker analyses a single channel of audio and
+ estimates the positions of bar lines and the resulting counted
+ metrical beat positions within the music (where the first beat of
+ each bar is "1", the equivalent of counting in time to the music).
+ It is closely related to the <a href="#qm-tempotracker">Tempo and
+ Beat Tracker</a>, producing the same results for beat position as
+ that plugin's "New" beat tracking method.
+
+</p>
+
+<h3>Method</h3>
+
+<p>The plugin first calculates an onset detection function using the
+"Complex Domain" method (see <a href="#qm-tempotracker">Tempo and Beat
+Tracker</a>).</p>
+
+<p>The beat tracking method performs two passes over the onset
+detection function, first to estimate the tempo contour, and then
+given the tempo, to recover the beat locations.</p>
+
+<p>To identify the tempo, the onset detection function is partitioned
+into 6-second frames with a 1.5-second increment. The autocorrelation
+function of each 6-second onset detection function is found and this
+is then passed through a perceptually weighted comb filterbank (see
+reference Davies 2007). The successive comb filterbank output signals
+are grouped together into a matrix of observations of periodicity
+through time. The best path of periodicity through these observations
+is found using the Viterbi algorithm, where the transition matrix is
+defined as a diagonal Gaussian.</p>
+
+<p>Given the estimates of periodicity, the beat locations are recovered
+by applying the dynamic programming algorithm (see reference Ellis
+2007). This process involves the calculation of a recursive cumulative
+score function and backtrace signal. The cumulative score indicates
+the likelihood of a beat existing at each sample of the onset
+detection function input, and the backtrace gives the location of the
+best previous beat given this point in time. Once the cumulative score
+and backtrace have been calculated for the whole input signal, the
+best path through beat locations is found by recursively sampling the
+backtrace signal from the end of the input signal back to the
+beginning.  See reference Stark et al. 2009 for a description of the
+real-time implementation of the beat tracking algorithm.</p>
+
+<p>Once the beat locations have been identified, the plugin makes a
+second pass over the input audio signal, partitioning it into beat
+synchronous frames. The audio within each beat frame is down-sampled
+to give a new sampling frequency of 2.8kHz. A beat-synchronous
+spectral representation is then calculated within each frame, from
+which a measure of beat spectral difference is calculated using
+Jensen-Shannon divergence. The bar boundaries are identified as those
+beat transitions leading to most consistent spectral change given the
+specified number of beats per bar.</p>
+
+<h3>Parameters</h3>
+
+<p><b>Beats per Bar</b> &ndash; The number of beats per bar (or measure).  The
+plugin assumes that the number of beats per bar is fixed throughout
+the music.
+</p>
+<h3>Outputs</h3>
+
+<p><b>Beats</b> &ndash; The estimated beat locations, returned as a single feature,
+ with timestamp but no value, for each beat, labelled with the
+ number of that beat within the bar (e.g. consecutively 1, 2, 3, 4 for 4 beats to the bar).
+</p>
+<p><b>Bars</b> &ndash; The estimated bar line locations, returned as a single feature,
+ with timestamp but no value, for each bar.
+</p>
+<p><b>Beat Count</b> &ndash; The estimated beat locations, returned as a single feature,
+ with timestamp and a value corresponding to the
+ number of that beat within the bar.  This is similar to the Beats output except that it returns a counting function rather than a series of instants.
+</p>
+<p><b>Beat Spectral Difference</b> &ndash; The new-bar likelihood function used in bar line estimation.
+</p>
+
+<h3>References and Credits</h3>
+
+<p><b>Beat tracking method</b>: A. M. Stark, M. E. P. Davies and
+ M. D. Plumbley. <i>Real-time beat-synchronous analysis of musical
+ audio</i>. To appear in Proceedings of 12th International Conference
+ on Digital Audio Effects (DAFx). 2009;<br>M. E. P. Davies and
+ M. D. Plumbley.  <i><a
+ href="http://www.elec.qmul.ac.uk/people/markp/2007/DaviesPlumbley07-taslp.pdf">Context-dependent
+ beat tracking of musical audio</a></i>. In IEEE Transactions on
+ Audio, Speech and Language Processing. Vol. 15, No. 3, pp1009-1020,
+ 2007;<br>D. P. W. Ellis. <i>Beat Tracking by Dynamic
+ Programming</i>. In Journal of New Music Research. Vol. 37, No. 1,
+ pp51-60, 2007.</p>
+
+<p><b>Bar finding method</b>: M. E. P. Davies and M. D. Plumbley. <i>A
+spectral difference approach to extracting downbeats in musical
+audio</i>. In Proceedings of 14th European Signal Processing Conference
+(EUSIPCO), Italy, 2006.</p>
+
+<p>The Bar and Beat Tracker Vamp plugin was written by Matthew Davies and Adam Stark.
+</p>
+
+
+
+<a name="qm-keydetector"></a><h2>4. Key Detector</h2>
 
 <p><b>System identifier</b> &ndash;    <code>vamp:qm-vamp-plugins:qm-keydetector</code>
 <br><b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-keydetector">http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-keydetector</a>
@@ -221,7 +338,8 @@ page</a>.
 <p>The Key Detector Vamp plugin was written by Katy Noland and Christian
  Landone.
 </p>
-<a name="qm-tonalchange"></a><h2>4. Tonal Change</h2>
+
+<a name="qm-tonalchange"></a><h2>5. Tonal Change</h2>
 
 <p><b>System identifier</b> &ndash;    <code>vamp:qm-vamp-plugins:qm-tonalchange</code>
 <br><b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-tonalchange">http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-tonalchange</a>
@@ -266,10 +384,92 @@ page</a>.
 <p><b>Method</b>: C. A. Harte, M. Gasser, and M. Sandler. <i><a href="http://portal.acm.org/citation.cfm?id=1178723.1178727">Detecting harmonic change in musical audio</a></i>.  In Proceedings of the 1st ACM workshop on
  Audio and Music Computing Multimedia, Santa Barbara, 2006.
 </p>
-<p>The Tonal Change Vamp plugin was wrtitten by Chris Harte and Martin
+<p>The Tonal Change Vamp plugin was written by Chris Harte and Martin
  Gasser.
 </p>
-<a name="qm-segmenter"></a><h2>5. Segmenter</h2>
+
+
+<a name="qm-adaptivespectrogram"></a><h2>6. Adaptive Spectrogram</h2>
+
+<p><b>System identifier</b> &ndash; <code>vamp:qm-vamp-plugins:qm-adaptivespectrogram</code>
+<br><b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-adaptivespectrogram">http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-adaptivespectrogram</a>
+<br><b>Links</b> &ndash; <a href="#">Back to top of library documentation</a> &ndash; <a href="http://www.elec.qmul.ac.uk/digitalmusic/downloads/index.html#qm-vamp-plugins">Download location</a>
+</p>
+
+<p>Adaptive Spectrogram produces a composite spectrogram from a set of
+series of short-time Fourier transforms at differing resolutions.
+Values are selected from these spectrograms by repeated subdivision by
+time and frequency in order to maximise an entropy function across
+each column.</p>
+
+<h3>Parameters</h3>
+
+<p><b>Number of resolutions</b> &ndash; The number of distinct
+resolutions to calculate and use.  The resolutions will be consecutive
+powers of two starting from the smallest resolution specified.</p>
+
+<p><b>Smallest resolution</b> &ndash; The smallest of the set of
+resolutions to use.</p>
+
+<p><b>Omit alternate resolutions</b> &ndash; Causes the plugin to
+ignore alternate resolutions (i.e. the smallest resolution multiplied
+by 2, 8, 32, etc) when composing a spectrogram.  The smallest
+resolution specified, and its multiples by 4, 16, etc as applicable,
+will be retained.  The total number of resolutions actually included
+in the resulting spectrogram will therefore be N/2 (for even N) or
+(N+1)/2 (for odd N) where N is the value of the "number of
+resolutions" parameter.  This permits a wider range of resolutions to
+be included with less processing, at obvious cost in quality.</p>
+
+<p><b>Multi-threaded processing</b> &ndash; Enables multi-threading of
+the spectrogram calculation.  This usually results in somewhat faster
+processing where multiple CPU cores are available.</p>
+
+<p>As an example of the resolution parameters, if the "number of
+resolutions" is set to 5, "smallest resolution" to 128, and "omit
+alternate resolutions" is not used, the composite spectrogram will be
+calculated using spectrograms from 128, 256, 512, 1024, and 2048 point
+short-time Fourier transforms (with 50% overlap in each case).  With
+"omit alternate resolutions" set, the same parameters would result in
+spectrograms from 128, 512, and 2048 point STFTs being used.</p>
+
+<h3>References and Credits</h3>
+
+<p><b>Method</b>: X. Wen and M. Sandler. <i><a href="http://scitation.aip.org/getabs/servlet/GetabsServlet?prog=normal&id=ISPECX000003000001000051000001">Composite spectrogram using multiple Fourier transforms</a></i>.  IET Signal Processing, 3(1):51-63, 2009.
+</p>
+
+<p>The Adaptive Spectrogram Vamp plugin was written by Wen Xue and Chris Cannam.</p>
+
+<a name="qm-transcription"></a><h2>7. Polyphonic Transcription</h2>
+
+<p><b>System identifier</b> &ndash; <code>vamp:qm-vamp-plugins:qm-transcription</code>
+<br><b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-transcription">http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-transcription</a>
+<br><b>Links</b> &ndash; <a href="#">Back to top of library documentation</a> &ndash; <a href="http://www.elec.qmul.ac.uk/digitalmusic/downloads/index.html#qm-vamp-plugins">Download location</a>
+
+<p>The Polyphonic Transcription plugin estimates a note transcription
+using MIDI pitch values from its input audio, returning a feature for
+each note (with timestamp and duration) whose value is the MIDI pitch
+number.  Velocity is not estimated.</p>
+
+<p>Although the published description of the method is described as
+real-time, the implementation used in this plugin is non-causal; it
+buffers its input to operate on in a single unit, doing all the real
+work after its entire input has been received, and is very memory
+intensive.  However, it is relatively fast (faster than real-time)
+compared to other polyphonic transcription methods.</p>
+
+<p>The plugin works best at 44.1KHz input sample rate, and is tuned for
+piano and guitar music.</p>
+
+
+<h3>References and Credits</h3>
+
+<p><b>Method</b>: R. Zhou and J. D. Reiss. <i>A Real-Time Polyphonic Music Transcription System</i>. In Proceedings of the Fourth Music Information Retrieval Evaluation eXchange (MIREX), Philadelphia, USA, 2008;<br>R. Zhou and J. D. Reiss. <i>A Real-Time Frame-Based Multiple Pitch Estimation Method Using the Resonator Time Frequency Image</i>. Third Music Information Retrieval Evaluation eXchange (MIREX), Vienna, Austria, 2007.</p>
+
+<p>The Polyphonic Transcription Vamp plugin was written by Ruohua Zhou.</p>
+
+
+<a name="qm-segmenter"></a><h2>8. Segmenter</h2>
 
 <p><b>System identifier</b> &ndash; <code>vamp:qm-vamp-plugins:qm-segmenter</code>
 <br><b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-segmenter">http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-segmenter</a>
@@ -368,7 +568,7 @@ page</a>.
 <p>The Segmenter Vamp plugin was written by Mark Levy.  Thanks to George
  Fazekas for providing much of this documentation.
 </p>
-<a name="qm-similarity"></a><h2>6. Similarity</h2>
+<a name="qm-similarity"></a><h2>9. Similarity</h2>
 
 <p><b>System identifier</b> &ndash;    <code>vamp:qm-vamp-plugins:qm-similarity</code>
 <br><b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-similarity">http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-similarity</a>
@@ -453,7 +653,46 @@ page</a>.
 <p>The Similarity Vamp plugin was written by Mark Levy, Kurt Jacobson and
  Chris Cannam.
 </p>
-<a name="qm-constantq"></a><h2>7. Constant-Q Spectrogram</h2>
+
+
+<a name="qm-dwt"></a><h2>10. Discrete Wavelet Transform</h2>
+
+<p><b>System identifier</b> &ndash;    <code>vamp:qm-vamp-plugins:qm-dwt</code>
+<br><b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-dwt">http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-dwt</a>
+<br><b>Links</b> &ndash; <a href="#">Back to top of library documentation</a> &ndash; <a href="http://www.elec.qmul.ac.uk/digitalmusic/downloads/index.html#qm-vamp-plugins">Download location</a>
+
+<p>Discrete Wavelet Transform plugin performs the forward DWT on the
+signal. The wavelet coefficients are derived from a fast segmented DWT
+algorithm without block end effects. The DWT can be performed with
+various functions from a selection of wavelets up to the 16th scale.<p>
+
+<p>The wavelet coefficients are returned as feature columns at a rate of
+half the sample rate of the signal to be analysed. To simulate
+multiresolution in the layer data table, the coefficient values at
+higher scales are copied multiple times according to the number of the
+scale. For example, for scale 2 each value will appear twice, at scale
+3 they will be appear four times, at scale 4 there will be 8 times the
+same coefficient value in order to simulate the lower resolution at
+higher scales.</p>
+
+<h3>Parameters</h3>
+
+<p><b>Scales</b> &ndash; Adjusts the number of scales of the DWT. The
+processing block size needs to be set to at least 2<sup>n</sup>, where n =
+number of scales.</p>
+
+<p><b>Wavelet</b> &ndash; Selects the wavelet function to be used for
+the transform.  Wavelets from the following families are available:
+Daubechies, Symlets, Coiflets, Biorthogonal, Meyer.</p>
+
+<h3>References and Credits</h3>
+
+<p><b>Principles</b>: S. Mallat. <i>A theory for multiresolution signal decomposition: the wavelet representation</i>. In IEEE Transactions on Pattern Analysis and Machine Intelligence, 11 (1989), pp. 674-693;<br>
+P. Rajmic and J. Vlach. <i>Real-Time Audio Processing via Segmented Wavelet Transform</i>. In Proceedings of the 10th Int. Conference on Digital Audio Effects (DAFx-07), Bordeaux, France, September 10-15, 2007.</p>
+
+<p>The Discrete Wavelet Transform plugin was written by Thomas Wilmering.</p>
+
+<a name="qm-constantq"></a><h2>11. Constant-Q Spectrogram</h2>
 
 <p><b>System identifier</b> &ndash;    <code>vamp:qm-vamp-plugins:qm-constantq</code>
 <br><b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-constantq">http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-constantq</a>
@@ -503,7 +742,7 @@ page</a>.
 <p>The Constant-Q Spectrogram Vamp plugin was written by Christian
  Landone.
 </p>
-<a name="qm-chromagram"></a><h2>8. Chromagram</h2>
+<a name="qm-chromagram"></a><h2>12. Chromagram</h2>
 
 <p><b>System identifier</b> &ndash;    <code>vamp:qm-vamp-plugins:qm-chromagram</code>
 <br><b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-chromagram">http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-chromagram</a>
@@ -553,7 +792,7 @@ page</a>.
 
 <p>The Chromagram Vamp plugin was written by Christian Landone.
 </p>
-<a name="qm-mfcc"></a><h2>9. Mel-Frequency Cepstral Coefficients</h2>
+<a name="qm-mfcc"></a><h2>13. Mel-Frequency Cepstral Coefficients</h2>
 
 <p><b>System identifier</b> &ndash;    <code>vamp:qm-vamp-plugins:qm-mfcc</code>
 <br><b>RDF URI</b> &ndash; <a href="http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-mfcc">http://vamp-plugins.org/rdf/plugins/qm-vamp-plugins#qm-mfcc</a>
