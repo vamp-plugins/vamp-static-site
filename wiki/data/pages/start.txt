@@ -1,0 +1,9 @@
+
+
+====== Welcome to the Vamp plugins wiki! ======
+
+
+This is a public wiki, available for any kind of material related to [[http://vamp-plugins.org|Vamp audio analysis plugins]] and their use and development.
+
+If you have something you'd like to add, please, sign up and get editing!
+

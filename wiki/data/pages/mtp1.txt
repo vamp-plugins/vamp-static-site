@@ -1,0 +1,122 @@
+====== From Method to Plugin: Building a new plugin on OS/X with make ======
+
+We're going to walk through the process of making, and compiling, a new Vamp plugin based on the skeleton files included with the Vamp plugin SDK.  We will start by setting up a project in which we just get the skeleton plugin to compile without it doing any actual work, and then we'll add some substance to it afterwards.  All work will be done using the terminal window and ''make'' (rather than, say, the Xcode IDE).  Some familiarity with C++ will be necessary in the later steps.
+
+The focus here is on the practical details of what you need to put in a plugin and how to get it to build and run -- not on the real mathematical or signal-processing aspect.  We will pick a very simple method (time-domain signal power, block by block) for this example.  Please refer to the [[http://vamp-plugins.org/guide.pdf|Vamp plugin API programmer's guide]] for further reading, with information about returning more sophisticated features.
+
+**Before you begin:** Make sure you have the Xcode tools (the OS/X developer SDK) installed!  You'll need it to compile anything.
+
+==== 1. Download and build the SDK ====
+
+Download the Vamp plugin SDK version 2.1 from http://vamp-plugins.org/develop.html, save it into your home directory, open a terminal window, and unpack it.  We'll also rename its directory from ''vamp-plugin-sdk-2.1'' to ''vamp-plugin-sdk'' for easier reference later on.
+<code>
+mac:~ chris$ ls vamp*
+vamp-plugin-sdk-2.1.tar.gz
+mac:~ chris$ tar xvzf vamp-plugin-sdk-2.1.tar.gz
+ ... lots of output ...
+mac:~ chris$ mv vamp-plugin-sdk-2.1 vamp-plugin-sdk
+mac:~ chris$
+</code>
+
+At this point you really ought to read the ''README'' file in the SDK directory, and the ''README.osx'' file in the SDK's ''build'' subdirectory.  But for the tutorial we'll skip that and plunge in and build the SDK directly.
+
+We'll only build the SDK libraries and example plugins.  We won't build the test host, because it requires an additional library (libsndfile).  We'll download a pre-compiled binary of the test host later instead.  (We could download pre-compiled library binaries too, but since we still need the SDK for the header files, we might as well compile it in place.)
+
+<code>
+mac:~ chris$ cd vamp-plugin-sdk
+mac:~/vamp-plugin-sdk chris$ make -f build/Makefile.osx sdk
+ ... lots of output ...
+mac:~/vamp-plugin-sdk chris$ make -f build/Makefile.osx plugins
+ ... lots of output ...
+mac:~/vamp-plugin-sdk chris$
+</code>
+
+==== 2. Copy the skeleton files to our new project home ====
+
+We're going to build our plugin in a new directory called ''tutorial'' in our home directory.
+
+<code>
+mac:~/vamp-plugin-sdk chris$ cd 
+mac:~ chris$ mkdir tutorial
+mac:~ chris$ cd tutorial
+mac:~/tutorial chris$
+</code>
+
+The starting point will be the set of skeleton files provided with the SDK.  These consist of a valid "working" Vamp plugin that happens to do nothing at all.
+
+<code>
+mac:~/tutorial chris$ cp ../vamp-plugin-sdk/tutorial/* .
+mac:~/tutorial chris$ ls
+Makefile.skeleton       MyPlugin.h              vamp-plugin.list
+MyPlugin.cpp            plugins.cpp             vamp-plugin.map
+mac:~/tutorial chris$
+</code>
+
+The skeleton plugin is contained in the files ''MyPlugin.cpp'' and ''MyPlugin.h''.  These two files implement a single C++ class, called ''MyPlugin''.  For the sake of brevity we'll leave these names unchanged, but you might prefer to change them!  To do so, rename the two files and replace every occurrence of the text ''MyPlugin'' in both of them, and in ''plugins.cpp'', with your preferred plugin class name.
+
+The file ''plugins.cpp'' contains the entry point for the plugin library.  A library can hold more than one plugin, and the job of ''plugins.cpp'' is to provide a single known public function (''vampGetPluginDescriptor'') which the host can use to find out what plugins are available in the library.  The skeleton version of ''plugins.cpp'' just returns the single MyPlugin plugin class.
+
+Note that it makes absolutely no difference to the operation of the plugin what its class is called; MyPlugin is (in purely technical terms) as good a name as any.  It also shouldn't matter if two different libraries happen to use the same class name.  But if you have more than one plugin in the same library, they'll need to have different class names then!
+
+==== 3. Get the skeleton build working ====
+
+The first thing we'll do with this skeleton project is build it into a "working" (although pointless) plugin.
+
+To build it we're going to use the tool ''make'', which takes a set of production rules described in a ''Makefile'' and uses them to turn source files into targets, in this case with the help of the C++ compiler.
+
+The skeleton project contains a file Makefile.skeleton which will be the basis of our Makefile.
+<code>
+mac:~/tutorial chris$ cp Makefile.skeleton Makefile
+</code>
+Now, open the Makefile in the text editor; we need to edit it to suit our new project.  We haven't changed the names of any of the skeleton source files, so we don't need to edit those, but we do need to uncomment the lines that are specific to compiling on OS/X.  These appear in the skeleton file as:
+<code>
+##  Uncomment these for an OS/X native build using command-line tools:
+
+# CXXFLAGS = -I$(VAMP_SDK_DIR) -Wall -fPIC
+# PLUGIN_EXT = .dylib
+# PLUGIN = $(PLUGIN_LIBRARY_NAME)$(PLUGIN_EXT)
+# LDFLAGS = -dynamiclib -install_name $(PLUGIN) $(VAMP_SDK_DIR)/libvamp-sdk.a -exported_symbols_list vamp-plugin.list
+</code>
+Remove the ''#'' characters from the starts of the four lines in that block:
+<code>
+##  Uncomment these for an OS/X native build using command-line tools:
+
+CXXFLAGS = -I$(VAMP_SDK_DIR) -Wall -fPIC
+PLUGIN_EXT = .dylib
+PLUGIN = $(PLUGIN_LIBRARY_NAME)$(PLUGIN_EXT)
+LDFLAGS = -dynamiclib -install_name $(PLUGIN) $(VAMP_SDK_DIR)/libvamp-sdk.a -exported_symbols_list vamp-plugin.list
+</code>
+Then, without changing anything else, save the file and run ''make''.
+
+<code>
+mac:~/tutorial chris$ 
+g++ -I../vamp-plugin-sdk -Wall -fPIC   -c -o MyPlugin.o MyPlugin.cpp
+g++ -I../vamp-plugin-sdk -Wall -fPIC   -c -o plugins.o plugins.cpp
+g++ -o myplugins.dylib MyPlugin.o plugins.o -dynamiclib -install_name myplugins.dylib ../vamp-plugin-sdk/libvamp-sdk.a -exported_symbols_list vamp-plugin.list
+mac:~/tutorial chris$ 
+</code>
+
+You should now have a plugin library file called ''myplugins.dylib'', as well as some ''.o'' files created during the build process.
+<code>
+mac:~/tutorial chris$ ls
+Makefile                MyPlugin.o              vamp-plugin.list
+Makefile.skeleton       myplugins.dylib         vamp-plugin.map
+MyPlugin.cpp            plugins.cpp
+MyPlugin.h              plugins.o
+mac:~/tutorial chris$
+</code>
+
+This ''myplugins.dylib'' file is a valid and complete Vamp plugin library.  It doesn't do anything worthwhile, but it can be loaded and "used" in any host.  It defines a single Vamp plugin, whose identifier is "myplugin" (this is coded into the MyPlugin.cpp file, we'll be changing it later).
+
+==== 4. Check that the plugin works with some test programs ====
+
+The next thing to do is gather some programs we can use to test our plugin, so that we can check it built correctly, and so that we'll be well placed to test it properly when it actually does something.
+
+The first one is the ''vamp-simple-host'' that is part of the Vamp SDK.  This is the part of the SDK that we didn't build in step 1 (because of its dependency on libsndfile).  Download it from the "pre-compiled library and host binaries" link at http://vamp-plugins.org/develop.html; the file you're downloading will be ''vamp-plugin-sdk-2.1-binaries-osx-universal.tar.gz''.
+
+==== 5. Do some actual calculations! ====
+
+==== 6. Fill in descriptions and other metadata ====
+
+==== 7. What else should we do? ====
+
