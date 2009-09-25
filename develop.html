@@ -19,6 +19,7 @@
       <li><a href="download.html">Download Plugins</a></li>
       <li><a href="develop.html">Make Plugins</a></li>
       <li><a href="http://vamp-plugins.org/forum/">Forum</a></li>
+      <li><a href="http://vamp-plugins.org/wiki/">Wiki</a></li>
       </ul></div>
 
       <h2 id="firstpara">Developing Vamp plugins and hosts</h2>
@@ -38,15 +39,15 @@ width="88" height="31" border="0" alt="SourceForge.net Logo"/></a></i></p>
       This is particularly advisable since the values returned by a
       plugin may have relatively complex structures.</p>
 
-      <ul><li>Download the <b>Vamp plugin SDK</b> (current version 2.0):
+      <ul><li>Download the <b>Vamp plugin SDK</b> (<b><i>new!</i></b> version 2.1):
 
-      <ul><li>The development headers and source code: <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.0.tar.gz">Gzipped tar file</a> or <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.0.zip">ZIP file</a> (the contents are identical).</li>
+      <ul><li>The development headers and source code: <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1.tar.gz">Gzipped tar file</a> or <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1.zip">ZIP file</a> (the contents are identical).</li>
 
-      <li>Pre-compiled library and host binaries for <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.0-binaries-win32-mingw32.zip">Windows (MinGW)</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.0-staticlibs-win32-msvc.zip">Windows (MSVC: static libraries only)</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.0-binaries-osx-universal.tar.gz">OS/X</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.0-binaries-i686-linux.tar.gz">32-bit Linux</a>, and <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.0-binaries-amd64-linux.tar.gz">64-bit Linux</a>.</li>
+      <li>Pre-compiled library and host binaries for <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-binaries-win32-mingw.zip">Windows (MinGW)</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-staticlibs-win32-msvc.zip">Windows (MSVC: static libraries only)</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-binaries-osx-universal.tar.gz">OS/X (universal)</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-binaries-i686-linux.tar.gz">32-bit Linux</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-binaries-amd64-linux.tar.gz">64-bit Linux</a>, and <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-binaries-i686-solaris.tar.gz">32-bit x86 Solaris</a>.</li>
 
-      <li><a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.0-docs.tar.gz">API documentation bundle</a>.</li>
+      <li><a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-docs.tar.gz">API documentation bundle</a>.</li>
 
-      <li>Example plugin binaries for <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-win32.zip">Windows</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-osx-universal.tar.gz">OS/X</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-i686-linux.tar.gz">32-bit Linux</a>, and <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-i686-linux.tar.gz">64-bit Linux</a>.</li>
+      <li>Example plugin binaries for <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-win32.zip">Windows</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-osx-universal.tar.gz">OS/X</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-i686-linux.tar.gz">32-bit Linux</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-i686-linux.tar.gz">64-bit Linux</a>, and <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-i686-solaris.tar.gz">32-bit x86 Solaris</a> (these are unchanged from version 2.0).</li>
 
       <li><a href="http://sourceforge.net/project/showfiles.php?group_id=192001&package_id=225765">The SourceForge download area</a> for any files not listed above.</li>
 
@@ -54,17 +55,21 @@ width="88" height="31" border="0" alt="SourceForge.net Logo"/></a></i></p>
 
       <br>
 
-      <li><b>New!</b> Download the <b>Vamp plugin tester</b>, a simple
+      <li>Download the <b>Vamp plugin tester</b> (<b><i>new!</i></b> version 1.0), a simple
       command-line utility that tests your plugins for various common
       failure cases.  It can't check whether you're getting the right
       results, but it can help you write better behaved and more
-      resilient plugins.  Get the <a
-      href="http://downloads.sourceforge.net/vamp/vamp-plugin-tester-0.1.tar.bz2">source
-      code</a>, <a
-      href="http://downloads.sourceforge.net/vamp/vamp-plugin-tester-0.1-osx-universal.tar.bz2">OS/X
-      universal binary</a>, or <a
-      href="http://downloads.sourceforge.net/vamp/vamp-plugin-tester-0.1-win32.zip">Windows
-      binary</a> of the initial version 0.1 release.</li>
+      resilient plugins.
+
+      <ul><li>Source code: <a
+      href="http://downloads.sourceforge.net/vamp/vamp-plugin-tester-1.0.tar.gz">Gzipped tar file</a>.</li>
+      <li>Pre-compiled binaries for <a
+      href="http://downloads.sourceforge.net/vamp/vamp-plugin-tester-1.0-win32.zip">Windows</a>,	
+      <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-tester-1.0-osx-universal.tar.gz">OS/X (universal)</a>,
+      <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-tester-1.0-i686-linux.tar.gz">32-bit Linux</a>,
+      <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-tester-1.0-amd64-linux.tar.gz">64-bit Linux</a>, and     
+      <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-tester-1.0-i686-solaris.tar.gz">32-bit x86 Solaris</a>.</li>
+      </ul>
 
       </ul>
       <h3>Developer Documentation</h3>
@@ -72,6 +77,8 @@ width="88" height="31" border="0" alt="SourceForge.net Logo"/></a></i></p>
 
       <li>Read the Vamp plugin SDK <a href="guide.pdf">Programmers
       Guide</a>.</li>
+
+      <li>Read a <a href="http://vamp-plugins.org/wiki/mtp1">tutorial on building a new plugin</a> using OS/X command-line tools.</li>
 
       <li>Read <a href="vamp-programmer-presentation.pdf">a presentation</a> about the principles of Vamp plugins for
       potential developers.</li>
