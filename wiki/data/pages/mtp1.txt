@@ -1,10 +1,16 @@
 ====== From Method to Plugin: Building a new plugin on OS/X with make ======
 
-We're going to walk through the process of making, and compiling, a new Vamp plugin based on the skeleton files included with the Vamp plugin SDK.  We will start by setting up a project in which we just get the skeleton plugin to compile without it doing any actual work, and then we'll add some substance to it afterwards.  All work will be done using the terminal window and ''make'' (rather than, say, the Xcode IDE).  Some familiarity with C++ will be necessary in the later steps.
+[**Note:** This tutorial is specific to OS/X.  A second tutorial which uses Visual Studio on Windows is in preparation.]
+
+We're going to walk through the process of making, and compiling, a new Vamp plugin based on the skeleton files included with the Vamp plugin SDK.
+
+We will start by setting up a project in which we just get the skeleton plugin to compile without it doing any actual work, and then we'll add some substance to it afterwards.
+
+All work will be done using the terminal window and ''make'' (rather than using, say, the Xcode IDE), so a passing familiarity with the command line will really help.  Some familiarity with C++ will be necessary too in the later steps.
 
 The focus here is on the practical details of what you need to put in a plugin and how to get it to build and run -- not on the real mathematical or signal-processing aspect.  We will pick a very simple method (time-domain signal power, block by block) for this example.  Please refer to the [[http://vamp-plugins.org/guide.pdf|Vamp plugin API programmer's guide]] for further reading, with information about returning more sophisticated features.
 
-**Before you begin:** Make sure you have the Xcode tools (the OS/X developer SDK) installed!  You'll need it to compile anything.
+**Before you begin:** Make sure you have the Xcode tools (the OS/X developer SDK) installed!  You can't compile anything without it.
 
 ==== 1. Download and build the SDK ====
 
@@ -20,7 +26,7 @@ mac:~ chris$
 
 At this point you really ought to read the ''README'' file in the SDK directory, and the ''README.osx'' file in the SDK's ''build'' subdirectory.  But for the tutorial we'll skip that and plunge in and build the SDK directly.
 
-We'll only build the SDK libraries and example plugins.  We won't build the test host, because it requires an additional library (libsndfile).  We'll download a pre-compiled binary of the test host later instead.  (We could download pre-compiled library binaries too, but since we still need the SDK for the header files, we might as well compile it in place.)
+We'll only build the SDK libraries and example plugins.  We won't build the test host, because it requires an additional library (libsndfile).  We'll download a pre-compiled binary of the test host later instead.  (There are pre-compiled libraries too, but since we still need the SDK for the header files, we might as well compile it in place.)
 
 <code>
 mac:~ chris$ cd vamp-plugin-sdk
@@ -42,21 +48,21 @@ mac:~ chris$ cd tutorial
 mac:~/tutorial chris$
 </code>
 
-The starting point will be the set of skeleton files provided with the SDK.  These consist of a valid "working" Vamp plugin that happens to do nothing at all.
+The starting point will be the set of skeleton source files provided with the SDK.  These compile into a valid, "working" Vamp plugin that happens to do nothing at all.
 
 <code>
-mac:~/tutorial chris$ cp ../vamp-plugin-sdk/tutorial/* .
+mac:~/tutorial chris$ cp ../vamp-plugin-sdk/skeleton/* .
 mac:~/tutorial chris$ ls
 Makefile.skeleton       MyPlugin.h              vamp-plugin.list
 MyPlugin.cpp            plugins.cpp             vamp-plugin.map
 mac:~/tutorial chris$
 </code>
 
-The skeleton plugin is contained in the files ''MyPlugin.cpp'' and ''MyPlugin.h''.  These two files implement a single C++ class, called ''MyPlugin''.  For the sake of brevity we'll leave these names unchanged, but you might prefer to change them!  To do so, rename the two files and replace every occurrence of the text ''MyPlugin'' in both of them, and in ''plugins.cpp'', with your preferred plugin class name.
+The bulk of the skeleton plugin code is contained in the files ''MyPlugin.cpp'' and ''MyPlugin.h''.  These two files implement a single C++ class, called ''MyPlugin''.  For the sake of brevity in the tutorial we'll leave these names unchanged, but you might prefer to change them!  To do so, rename the two files as you wish, and replace every occurrence of the text ''MyPlugin'' in both of them, and in ''plugins.cpp'', with your preferred plugin class name.
 
 The file ''plugins.cpp'' contains the entry point for the plugin library.  A library can hold more than one plugin, and the job of ''plugins.cpp'' is to provide a single known public function (''vampGetPluginDescriptor'') which the host can use to find out what plugins are available in the library.  The skeleton version of ''plugins.cpp'' just returns the single MyPlugin plugin class.
 
-Note that it makes absolutely no difference to the operation of the plugin what its class is called; MyPlugin is (in purely technical terms) as good a name as any.  It also shouldn't matter if two different libraries happen to use the same class name.  But if you have more than one plugin in the same library, they'll need to have different class names then!
+Note that it makes absolutely no difference to the operation of the plugin what its class is called, or what any of these files is called; MyPlugin is (in purely technical terms) as good a name as any.  It also shouldn't matter if two different libraries happen to use the same class name.  But if you have more than one plugin in the same library, they'll need to have different class names then!
 
 ==== 3. Get the skeleton build working ====
 
@@ -112,11 +118,350 @@ This ''myplugins.dylib'' file is a valid and complete Vamp plugin library.  It d
 
 The next thing to do is gather some programs we can use to test our plugin, so that we can check it built correctly, and so that we'll be well placed to test it properly when it actually does something.
 
-The first one is the ''vamp-simple-host'' that is part of the Vamp SDK.  This is the part of the SDK that we didn't build in step 1 (because of its dependency on libsndfile).  Download it from the "pre-compiled library and host binaries" link at http://vamp-plugins.org/develop.html; the file you're downloading will be ''vamp-plugin-sdk-2.1-binaries-osx-universal.tar.gz''.
+=== vamp-simple-host ===
 
-==== 5. Do some actual calculations! ====
+The first one is the ''vamp-simple-host'' that is part of the Vamp SDK.  This is the part of the SDK that we didn't build in step 1 (because of its dependency on libsndfile).  Download it from the "pre-compiled library and host binaries" link at http://vamp-plugins.org/develop.html; the file you're downloading will be ''vamp-plugin-sdk-2.1-binaries-osx-universal.tar.gz''.  For the time being, just open this archive in the OS/X Finder and unpack the single file ''vamp-simple-host'' into our project directory (the ''tutorial'' one).
+
+Like all Vamp hosts, ''vamp-simple-host'' understands the ''VAMP_PATH'' environment variable to tell it where to look for plugins.  We can set this variable for a single run of the program by prefixing the program name with the variable assignment on the command line.  And, with the ''-l'' option, we can ask it to list the plugins it finds there.
+
+<code>
+mac:~/tutorial chris$ ls vamp-simple-host
+vamp-simple-host
+mac:~/tutorial chris$ VAMP_PATH=. ./vamp-simple-host -l
+Vamp plugin search path: [.]
+
+Vamp plugin libraries found in search path:
+
+  ./myplugins.dylib:
+    [A] [v2] My Plugin, "myplugin" []
+
+mac:~/tutorial chris$
+</code>
+
+Huzzah.  We can use this host to run the plugin on some test audio files, not just list it, but there isn't much point yet.
+
+=== vamp-plugin-tester ===
+
+The other test host worth setting up at the start is ''vamp-plugin-tester'', a program that tests your plugin for a number of possible problems and pitfalls.  You can download this from http://vamp-plugins.org/develop.html as well; copy it into the same directory as well, for the time being.
+
+<code>
+mac:~/tutorial chris$ ls vamp-plugin-tester
+vamp-plugin-tester
+mac:~/tutorial chris$ VAMP_PATH=. ./vamp-plugin-tester -a
+vamp-plugin-tester: Running...
+Testing plugin: myplugins:myplugin
+ -- Performing test: A1 Invalid identifiers
+ -- Performing test: A2 Empty metadata fields
+ ** WARNING: Plugin description is empty
+ ** WARNING: Plugin maker is empty
+ ** WARNING: Plugin copyright is empty
+ ** WARNING: Plugin parameter "parameter" description is empty
+ ** WARNING: Plugin output "output" description is empty
+ -- Performing test: A3 Inappropriate value extents
+ -- Performing test: B1 Output number mismatching
+ ** NOTE: No results returned for output "output"
+ -- Performing test: B2 Invalid or dubious timestamp usage
+ -- Performing test: C1 Normal input
+ -- Performing test: C2 Empty input
+ -- Performing test: C3 Short input
+ -- Performing test: C4 Absolutely silent input
+ -- Performing test: C5 Input beyond traditional +/-1 range
+ -- Performing test: C6 Random input
+ -- Performing test: D1 Consecutive runs with separate instances
+ -- Performing test: D2 Consecutive runs with a single instance using reset
+ -- Performing test: D3 Simultaneous interleaved runs in a single thread
+ -- Performing test: D4 Consecutive runs with different start times
+ ** WARNING: Consecutive runs with different starting timestamps produce the same result
+ -- Performing test: E1 Inconsistent default program
+ -- Performing test: E2 Inconsistent default parameters
+ -- Performing test: F1 Different sample rates
+ -- Performing test: F2 Lengthy constructor
+vamp-plugin-tester: All tests succeeded for this plugin
+
+vamp-plugin-tester: All tests succeeded, with 6 warning(s) and 1 other note(s)
+mac:~/tutorial chris$
+</code>
+
+As you see, ''vamp-plugin-tester'' runs quite a number of tests -- see its ''README'' file for more details about the error and warning messages it might give.  It's a good idea to use the tester right from the start of plugin development.
+
+==== 5. Now, the code! ====
+
+Right, let's make the plugin do something.  We're going to calculate the mean power for each processing block.  The work we do in this section will involve editing the ''MyPlugin.cpp'' file (and at one point also ''MyPlugins.h'') in the text editor.
+
+The calculation we want is ''sum(x[i]^2) / N'', where ''x[i]'' is audio sample number ''i'', for ''i'' in the range 0 to ''N-1'', with ''N'' the number of samples in the processing block.
+
+=== Describing the input and output formats ===
+
+Our calculation is a time-domain one (working directly from the PCM audio data), which means we don't need to change this function (found at line 63):
+
+<code cpp>
+MyPlugin::InputDomain
+MyPlugin::getInputDomain() const
+{
+    return TimeDomain;
+}
+</code>
+
+We are going to write code to handle a single audio channel only, and leave it to the host to decide what to do if more than one channel is provided (most hosts will mix-down the input for us).  So that means we don't need to change these functions either:
+
+<code cpp>
+size_t
+MyPlugin::getMinChannelCount() const
+{
+    return 1;
+}
+
+size_t
+MyPlugin::getMaxChannelCount() const
+{
+    return 1;
+}
+</code>
+
+Nothing about our calculation requires us to constrain the processing block size -- we can handle any block size.  So we can leave this function unchanged as well:
+
+<code cpp>
+size_t
+MyPlugin::getPreferredBlockSize() const
+{
+    return 0; // 0 means "I can handle any block size"
+}
+</code>
+
+The function ''getOutputDescriptors'' describes what sort of features we intend to return.  As it happens, the skeleton already contains pretty much the description we are going to need: a single feature, with a single value, returned for each processing block.  We should probably change the name of the output, at least:
+
+<code cpp>
+MyPlugin::OutputList
+MyPlugin::getOutputDescriptors() const
+{
+    OutputList list;
+
+    OutputDescriptor d;
+    d.identifier = "power";
+    d.name = "Power";
+    d.description = "";
+    d.unit = "";
+    d.hasFixedBinCount = true;
+    d.binCount = 1;
+    d.hasKnownExtents = false;
+    d.isQuantized = false;
+    d.sampleType = OutputDescriptor::OneSamplePerStep;
+    d.hasDuration = false;
+    list.push_back(d);
+
+    return list;
+}
+</code>
+
+=== Initialisation ===
+
+We said that we can **accept** any block size -- but we do need to know what the block size is.
+
+This is told to us in the ''initialise'' function.  Looking at that function, we can see the argument is ''size_t blockSize''.  It's our job to remember the value of this.
+
+We need to add a class data member for this.  In ''MyPlugin.h'', look for this line at line 54 (near the bottom of the file):
+
+<code cpp>
+    // plugin-specific data and methods go here
+</code>
+
+and add a line after it:
+
+<code cpp>
+    // plugin-specific data and methods go here
+    size_t m_blockSize;
+</code>
+
+Then, back in ''MyPlugin.cpp'', find this line at line 187 in the ''initialise'' function:
+
+<code cpp>
+    // Real initialisation work goes here!
+</code>
+
+and add a line to set the data member:
+
+<code cpp>
+    // Real initialisation work goes here!
+    m_blockSize = blockSize;
+</code>
+
+Also it's very good practice to make sure the data member is initialised to zero in the class constructor.  That, at line 10 of ''MyPlugin.cpp'', initially reads:
+
+<code cpp>
+MyPlugin::MyPlugin(float inputSampleRate) :
+    Plugin(inputSampleRate)
+{
+}
+</code>
+
+and we want it to read:
+
+<code cpp>
+MyPlugin::MyPlugin(float inputSampleRate) :
+    Plugin(inputSampleRate),
+    m_blockSize(0)
+{
+}
+</code>
+
+At this point, after saving both the header and ''.cpp'' file, it's probably worth going back to the terminal window and making sure it still compiles.  (Just run ''make'' again.)
+
+=== Processing ===
+
+The core of our calculation happens in the ''process'' method:
+
+<code cpp>
+MyPlugin::FeatureSet
+MyPlugin::process(const float *const *inputBuffers, Vamp::RealTime timestamp)
+{
+    // Do actual work!
+    return FeatureSet();
+}
+</code>
+
+Here ''inputBuffers'' is effectively an array of arrays -- to retrieve a single audio sample, we index it first by audio channel number (we know that we only have one channel, so the only valid index is 0) and then by audio sample number (from 0 to the processing block size less 1).
+
+What we want to do is add up the squares of the audio sample values, and divide by the number of samples.
+
+<code cpp>
+MyPlugin::FeatureSet
+MyPlugin::process(const float *const *inputBuffers, Vamp::RealTime timestamp)
+{
+    float sumOfSquares = 0.0f;
+
+    size_t i = 0; // note: same type as m_blockSize
+
+    while (i < m_blockSize) {
+        float sample = inputBuffers[0][i];
+        sumOfSquares += sample * sample;
+    }
+
+    float meanPower = sumOfSquares / m_blockSize;
+
+    // now what?
+
+    return FeatureSet();
+}
+</code>
+
+So we've calculated the mean power value -- now how to return it?
+
+In Vamp plugin terms, what we have is a plugin that has a single output, on which is returned a single audio feature for each process block, with one value.  We need to construct a ''Feature'' object, give it a single value, and then push it as the only feature in output 0 (the first) of a new ''FeatureSet'' object.  See the [[http://vamp-plugins.org/guide.pdf|Vamp plugin API programmer's guide]] for more information about feature representation.
+
+Here's the code:
+
+<code cpp>
+MyPlugin::FeatureSet
+MyPlugin::process(const float *const *inputBuffers, Vamp::RealTime timestamp)
+{
+    float sumOfSquares = 0.0f;
+
+    size_t i = 0;
+
+    while (i < m_blockSize) {
+        float sample = inputBuffers[0][i];
+        sumOfSquares += sample * sample;
+        ++i;
+    }
+
+    float meanPower = sumOfSquares / m_blockSize;
+
+    Feature f;
+    f.hasTimestamp = false;
+    f.values.push_back(meanPower);
+
+    FeatureSet fs;
+    fs[0].push_back(f);
+    return fs;
+}
+</code>
+
+After making this change and returning to the terminal window to run ''make'' again, we now have a plugin that actually does something.
+
+With a suitable input file (''.wav'' or ''.aiff'' or a similar uncompressed format that ''vamp-simple-host'' understands), we can now run it:
+
+<code>
+mac:~/tutorial chris$ VAMP_PATH=. ./vamp-simple-host myplugins:myplugin ~/my-song.wav
+vamp-simple-host: Running...
+Reading file: "/Users/chris/my-song.wav", writing to standard output
+Running plugin: "myplugin"...                                        
+Using block size = 1024, step size = 1024                            
+Plugin accepts 1 -> 1 channel(s)                                     
+Sound file has 2 (will mix/augment if necessary)                     
+Output is: "output"                                                  
+ 0.000000000: 0
+ 0.023219954: 0
+ 0.046439909: 0
+ 0.069659863: 0
+ 0.092879818: 0
+ 0.116099773: 0
+ 0.139319727: 0
+ 0.162539682: 1.56888e-11
+ 0.185759637: 4.90218e-09
+ 0.208979591: 2.135e-07
+ 0.232199546: 0.00666197
+ ... and lots and lots and lots and lots more output ...
+mac:~/tutorial chris$
+</code>
+
+Try using the ''vamp-plugin-tester'' again as well.
+
 
 ==== 6. Fill in descriptions and other metadata ====
 
-==== 7. What else should we do? ====
+Now we have a working plugin, but it still has the rather awkward name of ''MyPlugin''.  There are several functions at the top of ''MyPlugin.cpp'' which we can use to give it a more sensible name and description.
+
+For example:
+
+<code cpp>
+string
+MyPlugin::getIdentifier() const
+{
+    return "myplugin";
+}
+</code>
+
+The identifier is a string that is not normally used by people (for example, it never appears when plugins are listed in a menu of a graphical application), but that uniquely identifies the plugin within its library.  Something like ''"power"'' is perfectly appropriate here.
+
+You should fill in all of ''getIdentifier'', ''getName'', ''getDescription'', ''getMaker'', ''getPluginVersion'', and ''getCopyright'' for every plugin you write.
+
+In my case, I would need something like:
+
+<code cpp>
+string
+MyPlugin::getIdentifier() const
+{
+    return "power";
+}
+
+string
+MyPlugin::getName() const
+{
+    return "Signal power level";
+}
+
+string
+MyPlugin::getDescription() const
+{
+    return "Calculate the mean signal power for each processing block";
+}
+
+string
+MyPlugin::getMaker() const
+{
+    return "Chris Cannam";
+}
+
+int
+MyPlugin::getPluginVersion() const
+{
+    return 1;
+}
+
+string
+MyPlugin::getCopyright() const
+{
+    return "Freely redistributable (tutorial example code)";
+}
+</code>
 
