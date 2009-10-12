@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <link rel="stylesheet" media="screen" type="text/css" href="screen.css"/>
+    <link rel="icon" type="image/png" href="images/waveform.png"/>
+    <link rel="shortcut" type="image/png" href="images/waveform.png"/>
+    <title>VamPy: Vamp Plugins in Python</title>
+    <meta name="robots" content="index"/>
+    <meta name="keywords" content="vamp plugin api plugins sonic visualiser visualizer visualise visualize audio music spectrogram feature extraction feapi vsi dssi"/>
+    <meta name="description" content="Vamp is a system for plugins that extract feature information from audio data."/>
+  </head>
+  <body>
+      <h1 id="header"><span>Vamp Plugins</span></h1>
+
+      <div id="nav">
+      <ul>
+      <li class="first"><a href="index.html">Home</a></li>
+      <li><a href="rationale.html">Rationale</a></li>
+      <li><a href="download.html">Download Plugins</a></li>
+      <li><a href="develop.html">Make Plugins</a></li>
+      <li><a href="http://vamp-plugins.org/forum/">Forum</a></li>
+      <li><a href="http://vamp-plugins.org/wiki/">Wiki</a></li>
+      </ul></div>
+
+      <h2 id="firstpara">VamPy: Vamp Plugins in Python!</h2>
+
+      <p>VamPy is a wrapper plugin written by Gyorgy Fazekas that
+      enables you to use <a href="http://vamp-plugins.org/">Vamp
+      plugins</a> written in <a href="http://python.org/">Python</a>
+      in any Vamp host.</p>
+
+      <p>It provides a (nearly) complete wrapper implementation of the
+      Vamp plugin API that can be used to write efficient plugins very
+      easily, taking advantage of the wide range of Python libraries
+      already available for scientific work.</p>
+
+      <p>Read the <a href="http://vamp.svn.sourceforge.net/viewvc/vamp/vamp-vampy/trunk/README">README file</a> for VamPy, or read an <a href="http://vamp.svn.sourceforge.net/viewvc/vamp/vamp-vampy/trunk/Example%20VamPy%20plugins/PySpectralFeatures.py?content-type=text%2Fplain">example Python plugin</a>.
+
+      <p><b>To use VamPy</b>, just download the VamPy wrapper plugin
+      compiled for your platform, copy it to your Vamp plugin
+      location, and copy any VamPy scripts &ndash; some examples are
+      included &ndash; into the same place.  Then just run your normal
+      Vamp host and you should see the scripts available there.  (See
+      <a href="download.html#install">How to Install</a> for details
+      of the Vamp plugin installation location on your system.)</p>
+
+           <p>Do check that you have a compatible version of Python:
+      the README files in the VamPy package will tell you what
+      versions are supported.  You're also strongly advised to
+      install <a href="http://numpy.scipy.org">NumPy</a>.</p>
+
+      <h3>Downloads</h3>
+
+      <table align=center border=1 cellpadding=5>
+
+      <tr><td><b>Version</b></td><td><b>Linux</b></td><td><b>OS/X</b></td><td><b>Windows</b></td><td><b>Solaris/x86</b></td><td><b>Source&nbsp;code</b></td></tr>
+
+      <tr>
+
+      <td><small>2.0</small></td>
+
+      <td><small><a href="http://downloads.sourceforge.net/vamp/vampy-2.0-i386-linux.tar.bz2">Download</a> (32&nbsp;bit)<br><a href="http://downloads.sourceforge.net/vamp/vampy-2.0-amd64-linux.tar.bz2">Download</a> (64&nbsp;bit)<br></small></td>
+
+      <td><small><a href="http://downloads.sourceforge.net/vamp/vampy-2.0-osx-universal.tar.bz2">Download</a></small></td>
+
+      <td><small><a href="http://downloads.sourceforge.net/vamp/vampy-2.0-win32.zip">Download</a></small></td>
+
+      <td><small><a href="http://downloads.sourceforge.net/vamp/vampy-2.0-i386-solaris.tar.bz2">Download</a></small></td>
+
+      <td><small><a href="http://downloads.sourceforge.net/vamp/vampy-2.0.tar.bz2">Download</a></small></td></tr>
+
+      </table>
+
+      <p>Although the VamPy wrapper plugin itself is
+      platform-dependent (so you must download the right one of the
+      plugins listed above!), the Python scripts themselves are
+      portable across platforms.  Publishing a VamPy plugin in Python
+      could be the simplest way to make a Vamp plugin available to the
+      world at large.</p>
+
+      <p>VamPy is licensed under the same liberal terms as the Vamp
+      SDK itself, and you are welcome to take the example code
+      included in the VamPy package and use it to make your own Python
+      plugins for any purpose you wish.</p>
+
+	<div id="logoblock">
+	<table width="100%" border="0" cellpadding="0" cellspacing="10"/>
+	<tr>
+	<td align=center><a href="http://www.elec.qmul.ac.uk/digitalmusic/"><img src="images/qm-logo.png" width="224" height="95" alt="Queen Mary logo" border=0/></a></td>
+	<td>Developed at the Centre for Digital Music, Queen Mary, University of London.</td>
+	<td align=right>Partially funded by the EPSRC through the OMRAS2 project EP/E017614/1.</td>
+	<td align=center><a href="http://www.omras2.org/"><img src="images/omras2-logo.png" width="265" height="46" alt="OMRAS2 logo" border=0/></a></td>
+	</tr>
+	</table>
+	</div>
+    </body>
+</html>
