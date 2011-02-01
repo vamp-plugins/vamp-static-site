@@ -1,6 +1,6 @@
 ====== From Method to Plugin: Building a new plugin on OS/X with make ======
 
-[**Note:** This tutorial is specific to OS/X.  A second tutorial which uses Visual Studio on Windows is in preparation.]
+**Note:** This tutorial is specific to **OS/X**.  Go [[mtp2|here]] for a version that uses Windows and Visual C++.
 
 We're going to walk through the process of making, and compiling, a new Vamp plugin based on the skeleton files included with the Vamp plugin SDK.
 
@@ -12,15 +12,16 @@ The focus here is on the practical details of what you need to put in a plugin a
 
 **Before you begin:** Make sure you have the Xcode tools (the OS/X developer SDK) installed!  You can't compile anything without it.
 
+**Note on build architectures:** Before OS/X 10.6, the default for the Xcode tools was to build 32-bit Intel binaries (known as "i386") when running on an Intel Mac, and 32-bit PowerPC ("ppc") when running on a PowerPC.  This was changed in 10.6 so as to build 64-bit Intel binaries ("x86_64") by default.  Unfortunately, plugins that are 64-bit only cannot be loaded into 32-bit hosts, such as the commonly distributed versions of all current Vamp hosts.  OS/X does support building for more than one architecture at once (storing the results in a fat file or "universal binary"), and that is the approach we take in this tutorial.  If we were to build for only a single architecture, i386 would currently be the more useful choice.
 ==== 1. Download and build the SDK ====
 
-Download the Vamp plugin SDK version 2.1 from http://vamp-plugins.org/develop.html, save it into your home directory, open a terminal window, and unpack it.  We'll also rename its directory from ''vamp-plugin-sdk-2.1'' to ''vamp-plugin-sdk'' for easier reference later on.
+Download the Vamp plugin SDK version 2.2 from the "development headers and source code" link on the developer page at http://vamp-plugins.org/develop.html -- the file you want is ''vamp-plugin-sdk-2.2.tar.gz''.  Save it into your home directory, open a terminal window, and unpack it.  We'll also rename its directory from ''vamp-plugin-sdk-2.2'' to ''vamp-plugin-sdk'' for easier reference later on.
 <code>
 mac:~ chris$ ls vamp*
-vamp-plugin-sdk-2.1.tar.gz
-mac:~ chris$ tar xvzf vamp-plugin-sdk-2.1.tar.gz
+vamp-plugin-sdk-2.2.tar.gz
+mac:~ chris$ tar xvzf vamp-plugin-sdk-2.2.tar.gz
  ... lots of output ...
-mac:~ chris$ mv vamp-plugin-sdk-2.1 vamp-plugin-sdk
+mac:~ chris$ mv vamp-plugin-sdk-2.2 vamp-plugin-sdk
 mac:~ chris$
 </code>
 
@@ -63,7 +64,6 @@ The bulk of the skeleton plugin code is contained in the files ''MyPlugin.cpp'' 
 The file ''plugins.cpp'' contains the entry point for the plugin library.  A library can hold more than one plugin, and the job of ''plugins.cpp'' is to provide a single known public function (''vampGetPluginDescriptor'') which the host can use to find out what plugins are available in the library.  The skeleton version of ''plugins.cpp'' just returns the single MyPlugin plugin class.
 
 Note that it makes absolutely no difference to the operation of the plugin what its class is called, or what any of these files is called; MyPlugin is (in purely technical terms) as good a name as any.  It also shouldn't matter if two different libraries happen to use the same class name.  But if you have more than one plugin in the same library, they'll need to have different class names then!
-
 ==== 3. Get the skeleton build working ====
 
 The first thing we'll do with this skeleton project is build it into a "working" (although pointless) plugin.
@@ -74,20 +74,20 @@ The skeleton project contains a file Makefile.skeleton which will be the basis o
 <code>
 mac:~/tutorial chris$ cp Makefile.skeleton Makefile
 </code>
-Now, open the Makefile in the text editor; we need to edit it to suit our new project.  We haven't changed the names of any of the skeleton source files, so we don't need to edit those, but we do need to uncomment the lines that are specific to compiling on OS/X.  These appear in the skeleton file as:
+Now, open the Makefile in the text editor; we need to edit it to suit our new project.  We haven't changed the names of any of the skeleton source files, so we don't need to edit those, but we do need to uncomment the lines that are specific to compiling on OS/X.  We want to make a universal binary (32- and 64-bit) rather than a native build, so we look for:
 <code>
-##  Uncomment these for an OS/X native build using command-line tools:
+##  Uncomment these for an OS/X universal binary (PPC, 32- and 64-bit Intel) using command-line tools:
 
-# CXXFLAGS = -I$(VAMP_SDK_DIR) -Wall -fPIC
+# CXXFLAGS = -isysroot /Developer/SDKs/MacOSX10.4u.sdk -arch i386 -arch x86_64 -arch ppc -I$(VAMP_SDK_DIR) -Wall -fPIC
 # PLUGIN_EXT = .dylib
 # PLUGIN = $(PLUGIN_LIBRARY_NAME)$(PLUGIN_EXT)
 # LDFLAGS = -dynamiclib -install_name $(PLUGIN) $(VAMP_SDK_DIR)/libvamp-sdk.a -exported_symbols_list vamp-plugin.list
 </code>
 Remove the ''#'' characters from the starts of the four lines in that block:
 <code>
-##  Uncomment these for an OS/X native build using command-line tools:
+##  Uncomment these for an OS/X universal binary (PPC, 32- and 64-bit Intel) using command-line tools:
 
-CXXFLAGS = -I$(VAMP_SDK_DIR) -Wall -fPIC
+CXXFLAGS = -isysroot /Developer/SDKs/MacOSX10.4u.sdk -arch i386 -arch x86_64 -arch ppc -I$(VAMP_SDK_DIR) -Wall -fPIC
 PLUGIN_EXT = .dylib
 PLUGIN = $(PLUGIN_LIBRARY_NAME)$(PLUGIN_EXT)
 LDFLAGS = -dynamiclib -install_name $(PLUGIN) $(VAMP_SDK_DIR)/libvamp-sdk.a -exported_symbols_list vamp-plugin.list
@@ -95,9 +95,9 @@ LDFLAGS = -dynamiclib -install_name $(PLUGIN) $(VAMP_SDK_DIR)/libvamp-sdk.a -exp
 Then, without changing anything else, save the file and run ''make''.
 
 <code>
-mac:~/tutorial chris$ 
-g++ -I../vamp-plugin-sdk -Wall -fPIC   -c -o MyPlugin.o MyPlugin.cpp
-g++ -I../vamp-plugin-sdk -Wall -fPIC   -c -o plugins.o plugins.cpp
+mac:~/tutorial chris$ make
+g++ -isysroot /Developer/SDKs/MacOSX10.4u.sdk -arch i386 -arch x86_64 -arch ppc -I../vamp-plugin-sdk -Wall -fPIC -c -o MyPlugin.o MyPlugin.cpp
+g++ -isysroot /Developer/SDKs/MacOSX10.4u.sdk -arch i386 -arch x86_64 -arch ppc -I../vamp-plugin-sdk -Wall -fPIC -c -o plugins.o plugins.cpp
 g++ -o myplugins.dylib MyPlugin.o plugins.o -dynamiclib -install_name myplugins.dylib ../vamp-plugin-sdk/libvamp-sdk.a -exported_symbols_list vamp-plugin.list
 mac:~/tutorial chris$ 
 </code>
@@ -334,6 +334,7 @@ MyPlugin::process(const float *const *inputBuffers, Vamp::RealTime timestamp)
     while (i < m_blockSize) {
         float sample = inputBuffers[0][i];
         sumOfSquares += sample * sample;
+        ++i;
     }
 
     float meanPower = sumOfSquares / m_blockSize;
@@ -464,4 +465,3 @@ MyPlugin::getCopyright() const
     return "Freely redistributable (tutorial example code)";
 }
 </code>
-

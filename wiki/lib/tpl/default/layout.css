@@ -30,13 +30,9 @@ div.dokuwiki .logo {
   font-weight: bolder;
   text-align: right;
   vertical-align: middle;
-  width: 476px;
-  height: 29px;
-  background: url(/images/vamp-title.png) no-repeat;
 }
 
 div.dokuwiki .logo a {
-  display: none;
   color: __background_alt__ !important;
   text-decoration: none !important;
   font-variant: small-caps;
@@ -62,7 +58,7 @@ div.dokuwiki .bar-right {
 }
 
 div.dokuwiki #bar__bottom {
-  margin-bottom:3px;
+  margin-bottom: 3px;
 }
 
 /* ------------- File Metadata ----------------------- */

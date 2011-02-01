@@ -7,4 +7,6 @@ This is a public wiki, available for any kind of material related to [[http://va
 
 If you have something you'd like to add, please, sign up and get editing!
 
-  * **New**: A [[mtp1|tutorial for prospective plugin developers]], covering how to get a new plugin compiled and working.  Using OS/X command-line tools (Windows version to follow).
+  * **New**: A tutorial for prospective plugin developers, covering how to get a new plugin compiled and working.  This tutorial comes in two versions:
+    * Using [[mtp1|OS/X and command-line tools]]
+    * Using [[mtp2|Windows and Visual C++]]

@@ -82,7 +82,7 @@ if (!defined('DOKU_INC')) die();
     <?php }?>
 
   </div>
-  <?php flush()?>
+  <?php tpl_flush()?>
 
   <?php /*old includehook*/ @include(dirname(__FILE__).'/pageheader.html')?>
 
@@ -94,7 +94,7 @@ if (!defined('DOKU_INC')) die();
 
   <div class="clearer">&nbsp;</div>
 
-  <?php flush()?>
+  <?php tpl_flush()?>
 
   <div class="stylefoot">
 
@@ -113,10 +113,10 @@ if (!defined('DOKU_INC')) die();
       <div class="bar-left" id="bar__bottomleft">
         <?php tpl_button('edit')?>
         <?php tpl_button('history')?>
+        <?php tpl_button('revert')?>
       </div>
       <div class="bar-right" id="bar__bottomright">
         <?php tpl_button('subscribe')?>
-        <?php tpl_button('subscribens')?>
         <?php tpl_button('admin')?>
         <?php tpl_button('profile')?>
         <?php tpl_button('login')?>
