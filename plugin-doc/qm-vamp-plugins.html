@@ -117,9 +117,10 @@ page</a>.
 </p>
 <h3>Parameters</h3>
 
-<p><b>Beat Tracking Method</b> &ndash; The method used to track beats.  The default, "New", uses a 
-
-<!-- HERE!!!! -->
+<p><b>Beat Tracking Method</b> &ndash; The method used to track beats.  The default, "New", uses a hybrid of the "Old" two-state beat tracking model
+(see reference Davies 2007) and a dynamic programming method (see reference
+Ellis 2007). A more detailed description is given below within the Bar and
+Beat Tracker plugin. </p>
 
 <p><b>Onset Detection Function Type</b> &ndash; The algorithm used to calculate the
  onset likelihood function.  The most versatile method is the default,
@@ -152,10 +153,13 @@ page</a>.
 <p><b>Beat tracking method</b>: M. E. P. Davies and M. D. Plumbley.
  <i><a href="http://www.elec.qmul.ac.uk/people/markp/2007/DaviesPlumbley07-taslp.pdf">Context-dependent beat tracking of musical audio</a></i>. In IEEE
  Transactions on Audio, Speech and Language Processing. Vol. 15, No. 3,
- pp1009-1020, 2007;<br>see also M. E. P. Davies and M. D. Plumbley.
+ pp1009-1020, 2007;<br>M. E. P. Davies and M. D. Plumbley.
  <i><a href="http://www.elec.qmul.ac.uk/people/markp/2005/DaviesPlumbley05-icassp.pdf">Beat Tracking With A Two State Model</a></i>. In Proceedings of the IEEE
  International Conference on Acoustics, Speech and Signal Processing
- (ICASSP 2005), Vol. 3, pp241-244 Philadelphia, USA, March 19-23, 2005.
+ (ICASSP 2005), Vol. 3, pp241-244 Philadelphia, USA, March 19-23, 2005;
+<br>D. P. W. Ellis. <i>Beat Tracking by Dynamic
+ Programming</i>. In Journal of New Music Research. Vol. 37, No. 1,
+ pp51-60, 2007.
 </p>
 <p><b>Onset detection methods</b>: C. Duxbury, J. P. Bello, M. Davies and
  M. Sandler, <i><a href="http://www.elec.qmul.ac.uk/dafx03/proceedings/pdfs/dafx81.pdf">Complex domain Onset Detection for Musical Signals</a></i>. In
