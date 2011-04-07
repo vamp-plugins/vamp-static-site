@@ -32,22 +32,25 @@
       <p>Vamp plugins use a C binary interface for the greatest level
       of binary compatibility.  However, plugins and hosts are
       strongly encouraged to make use of the set of C++ base classes
-      provided in the SDK.  You can also now <b>write Vamp plugins in
-      Python</b> using <a href="vampy.html">VamPy</a>.</p>
+      provided in the SDK.</p>
 
-      <ul><li>Download the <b>Vamp plugin SDK</b> (<b><i>new!</i></b> version 2.2):
+      <p>Alternatively, you can also now make Vamp plugins in
+      Python using <a href="vampy.html">VamPy</a>.</p>
+
+      <h3>Developer Downloads</h3>
+      <ul><li>Download the <b>Vamp plugin SDK</b> (version 2.2.1):
 
 	<a href="http://sourceforge.net/projects/vamp/"><img style="float:right"
 	      src="http://sourceforge.net/sflogo.php?group_id=192001&type=1"
 width="88" height="31" border="0" alt="SourceForge.net Logo"/></a>
 
-      <ul><li>The development headers and source code: <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.2.tar.gz">Gzipped tar file</a> or <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.2.zip">ZIP file</a> (the contents are identical).</li>
+      <ul><br><li>The main SDK (development headers, source code, example code):<br><a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.2.1.tar.gz">As a gzipped tar file</a> or <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.2.1.zip">as a ZIP file</a>.</li><br>
 
-      <li>Pre-compiled library and host binaries for <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-binaries-win32-mingw.zip">Windows (MinGW)</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-staticlibs-win32-msvc.zip">Windows (MSVC: static libraries only)</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1b-binaries-osx-universal.tar.gz">OS/X (universal)</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-binaries-i686-linux.tar.gz">32-bit Linux</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-binaries-amd64-linux.tar.gz">64-bit Linux</a>, and <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-binaries-i686-solaris.tar.gz">32-bit x86 Solaris</a> (these are unchanged from version 2.1).</li>
+      <li>Pre-compiled library and host binaries:<br><a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-binaries-win32-mingw.zip">Windows (MinGW)</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-staticlibs-win32-msvc.zip">Windows (MSVC: static libraries only)</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1b-binaries-osx-universal.tar.gz">OS/X (universal)</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-binaries-i686-linux.tar.gz">32-bit Linux</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-binaries-amd64-linux.tar.gz">64-bit Linux</a>, and <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-binaries-i686-solaris.tar.gz">32-bit x86 Solaris</a> (these are unchanged from version 2.1).</li><br>
+
+      <li>Example plugin binaries:<br><a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-win32.zip">Windows</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.2.1-osx-universal.tar.gz">OS/X</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-i686-linux.tar.gz">32-bit Linux</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-i686-linux.tar.gz">64-bit Linux</a>, and <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-i686-solaris.tar.gz">32-bit x86 Solaris</a> (these are unchanged from version 2.0).</li></br>
 
       <li><a href="http://downloads.sourceforge.net/vamp/vamp-plugin-sdk-2.1-docs.tar.gz">API documentation bundle</a>.</li>
-
-      <li>Example plugin binaries for <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-win32.zip">Windows</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-osx-universal.tar.gz">OS/X</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-i686-linux.tar.gz">32-bit Linux</a>, <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-i686-linux.tar.gz">64-bit Linux</a>, and <a href="http://downloads.sourceforge.net/vamp/vamp-example-plugins-2.0-i686-solaris.tar.gz">32-bit x86 Solaris</a> (these are unchanged from version 2.0).</li>
 
       <li><a href="http://sourceforge.net/project/showfiles.php?group_id=192001&package_id=225765">The SourceForge download area</a> for any files not listed above.</li>
 
@@ -55,14 +58,14 @@ width="88" height="31" border="0" alt="SourceForge.net Logo"/></a>
 
       <br>
 
-      <li>Download the <b>Vamp plugin tester</b> (<b><i>new!</i></b> version 1.0), a simple
+      <li>Download the <b>Vamp plugin tester</b> (version 1.0), a simple
       command-line utility that tests your plugins for various common
       failure cases.  It can't check whether you're getting the right
       results, but it can help you write better behaved and more
       resilient plugins.
 
-      <ul><li>Source code: <a
-      href="http://downloads.sourceforge.net/vamp/vamp-plugin-tester-1.0.tar.gz">Gzipped tar file</a>.</li>
+      <ul><br><li>Source code: <a
+      href="http://downloads.sourceforge.net/vamp/vamp-plugin-tester-1.0.tar.gz">Gzipped tar file</a>.</li><br>
       <li>Pre-compiled binaries for <a
       href="http://downloads.sourceforge.net/vamp/vamp-plugin-tester-1.0-win32.zip">Windows</a>,	
       <a href="http://downloads.sourceforge.net/vamp/vamp-plugin-tester-1.0-osx-universal.tar.gz">OS/X (universal)</a>,
@@ -83,21 +86,21 @@ width="88" height="31" border="0" alt="SourceForge.net Logo"/></a>
       <li>Read <a href="vamp-programmer-presentation.pdf">a presentation</a> about the principles of Vamp plugins for
       potential developers.</li>
 
-      <li><a href="code-doc/index.html">Read the API documentation online</a>.  Your plugins will normally derive from <a href="code-doc/classVamp_1_1Plugin.html">the Vamp::Plugin class</a>.</li>
+      <li><a href="https://code.soundsoftware.ac.uk/embedded/vamp-plugin-sdk/">Read the API documentation online</a>.  Your plugins will normally derive from <a href="https://code.soundsoftware.ac.uk/embedded/vamp-plugin-sdk/classVamp_1_1Plugin.html">the Vamp::Plugin class</a>.</li>
 
-      <li><a href="http://vamp.svn.sourceforge.net/viewvc/vamp/vamp-plugin-sdk/trunk/README?view=markup">Read the README file for the SDK</a>.</li>
+      <li><a href="https://code.soundsoftware.ac.uk/projects/vamp-plugin-sdk/repository/entry/README">Read the README file for the SDK</a>.</li>
 
-      <li>Have a look at a simple example plugin: <a href="http://vamp.svn.sourceforge.net/viewvc/*checkout*/vamp/vamp-plugin-sdk/trunk/examples/ZeroCrossing.h">header</a>, <a href="http://vamp.svn.sourceforge.net/viewvc/*checkout*/vamp/vamp-plugin-sdk/trunk/examples/ZeroCrossing.cpp">source file</a>.
+      <li>Have a look at a simple example plugin: <a href="https://code.soundsoftware.ac.uk/projects/vamp-plugin-sdk/repository/entry/examples/ZeroCrossing.h">header</a>, <a href="https://code.soundsoftware.ac.uk/projects/vamp-plugin-sdk/repository/entry/examples/ZeroCrossing.cpp">source file</a>.
 
       <li>Read documentation for all the <a href="plugin-doc/vamp-example-plugins.html">SDK example plugins</a>.
 
-      <li><a href="http://vamp.svn.sourceforge.net/viewvc/vamp/vamp-plugin-sdk/trunk/">Browse the SDK and examples code</a> in the Subversion repository.</li>
+      <li><a href="https://code.soundsoftware.ac.uk/projects/vamp-plugin-sdk">Visit the Vamp SDK code project</a>.</li>
 
       </ul>
 
       <p>The entire SDK is published under a very permissive BSD-style
       <a
-      href="http://vamp.svn.sourceforge.net/viewvc/vamp/vamp-plugin-sdk/trunk/COPYING">license</a>.
+      href="https://code.soundsoftware.ac.uk/projects/vamp-plugin-sdk/repository/entry/COPYING">license</a>.
       You are encouraged to copy from it wholesale, whether developing
       open-source or proprietary plugin or host software.</p>
 
