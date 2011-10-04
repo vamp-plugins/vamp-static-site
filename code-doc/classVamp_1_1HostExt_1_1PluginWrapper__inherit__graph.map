@@ -1,6 +1,8 @@
-<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginBufferingAdapter.html" title="PluginBufferingAdapter is a Vamp plugin adapter that allows plugins to be used by..." alt="" coords="573,5,808,29">
-<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginChannelAdapter.html" title="PluginChannelAdapter is a Vamp plugin adapter that implements a policy for management..." alt="" coords="575,53,807,77">
-<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginInputDomainAdapter.html" title="PluginInputDomainAdapter is a Vamp plugin adapter that converts time&#45;domain input..." alt="" coords="561,101,820,125">
-<area shape="rect" href="$classVamp_1_1HostExt_1_1PluginSummarisingAdapter.html" title="PluginSummarisingAdapter is a Vamp plugin adapter that provides summarisation methods..." alt="" coords="561,149,820,173">
-<area shape="rect" href="$classVamp_1_1Plugin.html" title="Vamp::Plugin is a base class for plugin instance classes that provide feature extraction..." alt="" coords="177,77,271,101">
-<area shape="rect" href="$classVamp_1_1PluginBase.html" title="A base class for plugins with optional configurable parameters, programs, etc." alt="" coords="7,77,127,101">
+<map id="G" name="G">
+<area shape="rect" id="node7" href="$classVamp_1_1HostExt_1_1PluginBufferingAdapter.html" title="PluginBufferingAdapter is a Vamp plugin adapter that allows plugins to be used by a host supplying an..." alt="" coords="558,5,789,30"/>
+<area shape="rect" id="node9" href="$classVamp_1_1HostExt_1_1PluginChannelAdapter.html" title="PluginChannelAdapter is a Vamp plugin adapter that implements a policy for management of plugins that..." alt="" coords="560,54,787,79"/>
+<area shape="rect" id="node11" href="$classVamp_1_1HostExt_1_1PluginInputDomainAdapter.html" title="PluginInputDomainAdapter is a Vamp plugin adapter that converts time&#45;domain input into frequency&#45;doma..." alt="" coords="547,103,800,129"/>
+<area shape="rect" id="node13" href="$classVamp_1_1HostExt_1_1PluginSummarisingAdapter.html" title="PluginSummarisingAdapter is a Vamp plugin adapter that provides summarisation methods such as mean an..." alt="" coords="547,153,800,178"/>
+<area shape="rect" id="node2" href="$classVamp_1_1Plugin.html" title="Vamp::Plugin is a base class for plugin instance classes that provide feature extraction from audio o..." alt="" coords="174,79,266,105"/>
+<area shape="rect" id="node4" href="$classVamp_1_1PluginBase.html" title="A base class for plugins with optional configurable parameters, programs, etc." alt="" coords="6,79,125,105"/>
+</map>

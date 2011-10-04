@@ -1,2 +1,4 @@
-<area shape="rect" href="$classVamp_1_1Plugin.html" title="Vamp::Plugin is a base class for plugin instance classes that provide feature extraction..." alt="" coords="20,81,113,105">
-<area shape="rect" href="$classVamp_1_1PluginBase.html" title="A base class for plugins with optional configurable parameters, programs, etc." alt="" coords="7,7,127,31">
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$classVamp_1_1Plugin.html" title="Vamp::Plugin is a base class for plugin instance classes that provide feature extraction from audio o..." alt="" coords="21,81,112,106"/>
+<area shape="rect" id="node4" href="$classVamp_1_1PluginBase.html" title="A base class for plugins with optional configurable parameters, programs, etc." alt="" coords="7,6,125,31"/>
+</map>
