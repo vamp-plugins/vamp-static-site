@@ -886,7 +886,7 @@ Unsubscribe to this topic by using this link: {UNSUBSCRIBELINK}
 			@description:
 		*/
 		'subject' => 'A new member has joined',
-		'body' => '{USERNAME} has just signed up as a new member of your forum. Click the link below to view their profile.
+		'body' => '{USERNAME} <{USEREMAIL}> has just signed up as a new member of your forum. Click the link below to view their profile.
 {PROFILELINK}
 
 Before this member can begin posting they must first have their account approved. Click the link below to go to the approval screen.

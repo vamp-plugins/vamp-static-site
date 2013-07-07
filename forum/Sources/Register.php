@@ -247,6 +247,9 @@ function Register2($verifiedOpenID = false)
 			fatal_lang_error('under_age_registration_prohibited', false, array($modSettings['coppaAge']));
 		}
 
+		if (!isset($_POST['justify']) || $_POST['justify'] == '')
+			fatal_error('You must give some description of your interest in Vamp plugins.  This helps us to weed out spam registrations, which are otherwise very numerous!', false);
+
 		// Check whether the visual verification code was entered correctly.
 		if (!empty($modSettings['reg_verification']))
 		{
@@ -358,6 +361,7 @@ function Register2($verifiedOpenID = false)
 		'require' => !empty($modSettings['coppaAge']) && !$verifiedOpenID && empty($_SESSION['skip_coppa']) ? 'coppa' : (empty($modSettings['registration_method']) ? 'nothing' : ($modSettings['registration_method'] == 1 ? 'activation' : 'approval')),
 		'extra_register_vars' => array(),
 		'theme_vars' => array(),
+		'justify' => 'default justification',
 	);
 
 	// Include the additional options that might have been filled in.
@@ -373,6 +377,10 @@ function Register2($verifiedOpenID = false)
 	foreach ($possible_bools as $var)
 		if (isset($_POST[$var]))
 			$regOptions['extra_register_vars'][$var] = empty($_POST[$var]) ? 0 : 1;
+
+	// This doesn't go in db
+	if (isset($_POST['justify']))
+		$regOptions['justify'] = '\'' . htmlspecialchars__recursive($_POST['justify']) . '\'';
 
 	// Registration options are always default options...
 	if (isset($_POST['default_options']))

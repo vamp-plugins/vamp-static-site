@@ -885,7 +885,7 @@ function registerMember(&$regOptions, $return_errors = false)
 		sendmail($regOptions['email'], $emaildata['subject'], $emaildata['body'], null, null, false, 0);
 
 		// Admin gets informed here...
-		adminNotify('approval', $memberID, $regOptions['username']);
+		adminNotify('approval', $memberID, $regOptions['username'], $regOptions['justify']);
 	}
 
 	// Okay, they're for sure registered... make sure the session is aware of this for security. (Just married :P!)

@@ -3077,7 +3077,7 @@ function updateLastMessages($setboards, $id_msg = 0)
 }
 
 // This simple function gets a list of all administrators and sends them an email to let them know a new member has joined.
-function adminNotify($type, $memberID, $member_name = null)
+function adminNotify($type, $memberID, $member_name = null, $justify = null)
 {
 	global $txt, $modSettings, $language, $scripturl, $user_info, $context, $smcFunc;
 
@@ -3085,11 +3085,13 @@ function adminNotify($type, $memberID, $member_name = null)
 	if (empty($modSettings['notify_new_registration']))
 		return;
 
+	$member_email = null;
+
 	if ($member_name == null)
 	{
 		// Get the new user's name....
 		$request = $smcFunc['db_query']('', '
-			SELECT real_name
+			SELECT real_name, email_address
 			FROM {db_prefix}members
 			WHERE id_member = {int:id_member}
 			LIMIT 1',
@@ -3097,7 +3099,7 @@ function adminNotify($type, $memberID, $member_name = null)
 				'id_member' => $memberID,
 			)
 		);
-		list ($member_name) = $smcFunc['db_fetch_row']($request);
+		list ($member_name, $member_email) = $smcFunc['db_fetch_row']($request);
 		$smcFunc['db_free_result']($request);
 	}
 
@@ -3142,6 +3144,7 @@ function adminNotify($type, $memberID, $member_name = null)
 	{
 		$replacements = array(
 			'USERNAME' => $member_name,
+			'USEREMAIL' => $member_email,
 			'PROFILELINK' => $scripturl . '?action=profile;u=' . $memberID
 		);
 		$emailtype = 'admin_notify';
@@ -3156,7 +3159,7 @@ function adminNotify($type, $memberID, $member_name = null)
 		$emaildata = loadEmailTemplate($emailtype, $replacements, empty($row['lngfile']) || empty($modSettings['userLanguage']) ? $language : $row['lngfile']);
 
 		// And do the actual sending...
-		sendmail($row['email_address'], $emaildata['subject'], $emaildata['body'], null, null, false, 0);
+		sendmail($row['email_address'], $emaildata['subject'], $emaildata['body'] . "\n\nJustification: $justify\n\n", null, null, false, 0);
 	}
 	$smcFunc['db_free_result']($request);
 

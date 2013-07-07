@@ -330,6 +330,8 @@ function template_registration_form()
 			</div>';
 	}
 
+	echo '<div class="title_bar"><h4 class="titlebg">Why are you interested in Vamp plugins?:</h4></div><div class="windowbg2"><span class="topslice"><span></span></span><fieldset class="content centertext"><input type="text" name="justify" size="60"/></fiedset></div>';
+
 	if ($context['visual_verification'])
 	{
 		echo '
