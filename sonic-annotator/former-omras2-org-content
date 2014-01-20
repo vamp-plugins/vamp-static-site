@@ -1,0 +1,203 @@
+<a href="http://code.soundsoftware.ac.uk/projects/sonic-annotator" target="_blank">Sonic Annotator</a> is a batch tool for feature extraction and annotation of audio files.  The audio to be processed can be on the local filesystem or available or over http or ftp.  It will run available <a href="http://vamp-plugins.org/">Vamp plugins</a> on a wide range of audio file types, and can write the results in a selection of formats.
+
+<div align=center><img src="files/semantic-web-and-friends-webscale.png"></div>
+
+<ul><li>Here is <a href="files/runner.pdf">a document</a> that explains more about the purpose and design of Sonic Annotator.  It's slightly out of date in some ways, but mostly accurate.</li>
+
+<li><b><i>9th May, 2013:</i> <a href="http://code.soundsoftware.ac.uk/projects/sonic-annotator/files">Download Sonic Annotator v1.0</a></b></li></ul>
+
+<h3>A Quick Tutorial</h3>
+
+<p>To use Sonic Annotator, you need to tell it three things: what audio files to extract features from; what features to extract; and how and where to write the results.  You can also optionally tell it to summarise the features.
+
+
+<h4>1. What audio files to extract features from</h4>
+
+<p>Sonic Annotator accepts a list of audio files on the command line. Any argument that is not understood as a supported command-line option will be taken to be the name of an audio file.  Any number of files may be listed.
+
+<p>Several common audio file formats are supported, including MP3, Ogg, and a number of PCM formats such as WAV and AIFF.  AAC is supported on OS/X only, and only if not DRM protected.  WMA is not supported.
+
+<p>File paths do not have to be local; you can also provide remote HTTP or FTP URLs for Sonic Annotator to retrieve.
+
+<p>Sonic Annotator also accepts the names of playlist files (with <code>.m3u</code> extension) and will process every file found in the playlist.
+
+<p>A limitation of the current version of Sonic Annotator on Windows is that it requires forward slash as the path separator ("/") instead of backslash ("\") to avoid writing incorrect URLs into the output in RDF writer mode.  For example, <code>C:/audio/testfile.wav</code>.
+
+<p>Finally, you can provide a local directory path instead of a file, together with the <code>-r</code> (recursive) option, for Sonic Annotator to process every audio file found in that directory or any of its subdirectories.
+
+
+<h4>2. What features to extract</h4>
+
+<p>Sonic Annotator applies "transforms" to its input audio files, where a transform (in this terminology) consists of a <a href="http://vamp-plugins.org/">Vamp plugin</a> together with a certain set of parameters and a specified execution context: step and block size, sample rate, etc.
+
+<p>To use a particular transform, specify its filename on the command line with the <code>-t</code> option.
+
+<p>Transforms are usually described in RDF, following the transform part of the Vamp plugin ontology (http://purl.org/ontology/vamp/).  A Transform may use any Vamp plugin that is currently installed and available on the system.  You can obtain a list of available plugin outputs by running Sonic Annotator with the <code>-l</code> option, and you can obtain a skeleton transform description for one of these plugins with the <code>-s</code> option.
+
+<p>For example, if the example plugins from the Vamp plugin SDK are available and no other plugins are installed, you might expect to see this listing from the <code>-l</code> option:
+
+<pre>
+  $ sonic-annotator -l
+  vamp:vamp-example-plugins:amplitudefollower:amplitude
+  vamp:vamp-example-plugins:fixedtempo:acf
+  vamp:vamp-example-plugins:fixedtempo:detectionfunction
+  vamp:vamp-example-plugins:fixedtempo:filtered_acf
+  vamp:vamp-example-plugins:fixedtempo:tempo
+  vamp:vamp-example-plugins:fixedtempo:candidates
+  vamp:vamp-example-plugins:percussiononsets:detectionfunction
+  vamp:vamp-example-plugins:percussiononsets:onsets
+  vamp:vamp-example-plugins:powerspectrum:powerspectrum
+  vamp:vamp-example-plugins:spectralcentroid:linearcentroid
+  vamp:vamp-example-plugins:spectralcentroid:logcentroid
+  vamp:vamp-example-plugins:zerocrossing:counts
+  vamp:vamp-example-plugins:zerocrossing:zerocrossings
+  $
+</pre>
+
+and this from <code>-s</code>:
+
+<pre>
+  $ sonic-annotator -s vamp:vamp-example-plugins:fixedtempo:tempo
+  @prefix xsd:      &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+  @prefix vamp:     &lt;http://purl.org/ontology/vamp/&gt; .
+  @prefix :         &lt;#&gt; .
+
+  :transform a vamp:Transform ;
+      vamp:plugin &lt;http://vamp-plugins.org/rdf/plugins/vamp-example-plugins#fixedtempo&gt; ;
+      vamp:step_size "64"^^xsd:int ; 
+
+      vamp:block_size "256"^^xsd:int ; 
+      vamp:parameter_binding [
+          vamp:parameter [ vamp:identifier "maxbpm" ] ;
+          vamp:value "190"^^xsd:float ;
+      ] ;
+      vamp:parameter_binding [
+          vamp:parameter [ vamp:identifier "maxdflen" ] ;
+          vamp:value "10"^^xsd:float ;
+      ] ;
+      vamp:parameter_binding [
+          vamp:parameter [ vamp:identifier "minbpm" ] ;
+          vamp:value "50"^^xsd:float ;
+      ] ;
+      vamp:output &lt;http://vamp-plugins.org/rdf/plugins/vamp-example-plugins#fixedtempo_output_tempo&gt; .
+  $
+</pre>
+
+<p>The output of this example is an RDF/Turtle document describing the default settings for the Tempo output of the Fixed Tempo Estimator plugin in the Vamp plugin SDK.
+
+<p>(The exact format of the RDF printed may differ &mdash; e.g. if the plugin's RDF description is not installed and so its "home" URI is not known &mdash; but the result should be functionally equivalent to this.)
+
+<p>You can then run this transform by saving the RDF to a file and specifying that file with <code>-t</code>:
+
+<pre>
+  $ sonic-annotator -s vamp:vamp-example-plugins:fixedtempo:tempo &gt; test.n3
+  $ sonic-annotator -t test.n3 audio.wav -w csv --csv-stdout
+  (... logging output on stderr, then ...)
+  "audio.wav",0.002902494,5.196916099,68.7916,"68.8 bpm"
+  $
+</pre>
+
+<p>The single line of output above consists of the audio file name, the timestamp and duration for a single feature, the value of that feature (the estimated tempo of the given region of time from that file, in bpm &mdash; the plugin in question performs a single tempo estimation and nothing else) and the feature's label.
+
+<p>A quicker way to achieve the above is to use the <code>-d</code> (default) option to tell Sonic Annotator to use directly the default configuration for a named transform:
+
+<pre>
+  $ sonic-annotator -d vamp:vamp-example-plugins:fixedtempo:tempo audio.wav -w csv --csv-stdout
+  (... some log output on stderr, then ...)
+  "audio.wav",0.002902494,5.196916099,68.7916,"68.8 bpm"
+  $
+</pre>
+
+<p>Although handy for experimentation, the <code>-d</code> option is inadvisable in any "production" situation because the plugin configuration is not guaranteed to be the same each time (for example if an updated version of a plugin changes some of its defaults).  It's better to save a well-defined transform to file and refer to that, even if it is simply the transform created by the skeleton option.
+
+<p>To run more than one transform on the same audio files, just put more than one set of transform RDF descriptions in the same file, or give the <code>-t</code> option more than once with separate transform description files.  Remember that if you want to specify more than one transform in the same file, they will need to have distinct URIs (that is, the <code>:transform</code> part of the example above, which may be any arbitrary name, must be distinct for each described transform).
+
+
+<h4>3. How and where to write the results</h4>
+
+<p>Sonic Annotator supports various different output modules (and it is fairly easy for the developer to add new ones).  You have to choose at least one output module; use the <code>-w</code> (writer) option to do so.  Each module has its own set of parameters which can be adjusted on the
+command line, as well as its own default rules about where to write the results.
+
+<p>The following writers are currently supported.  (Others exist, but are not properly implemented or not supported.)
+
+<ul>
+<li>
+<b>csv</b>
+
+<p>   Writes the results into comma-separated data files.
+
+<p>   One file is created for each transform applied to each input audio  file, named after the input audio file and transform name with <code>.csv</code>   suffix and ":" replaced by "_" throughout, placed in the same   directory as the audio file.
+
+<p>   To instruct Sonic Annotator to place the output files in another   location, use <code>--csv-basedir</code> with a directory name.
+
+<p>   To write a single file with all data in it, use <code>--csv-one-file</code>.
+
+<p>   To write all data to standard output instead of to a file, use <code>--csv-stdout</code>.
+
+<p>   Sonic Annotator will not write to an output file that already   exists.  If you want to make it do this, use <code>--csv-force to</code>   overwrite or <code>--csv-append</code> to append to it.
+
+<p>The data generated consists of one line for each result feature,   containing the feature timestamp, feature duration if present, all   of the feature's bin values in order, followed by the feature's   label if present.  If the <code>--csv-one-file</code> or <code>--csv-stdout</code> option is   specified, then an additional column will appear before any of the   above, containing the audio file name from which the feature was   extracted, if it differs from that of the previous row.
+ 
+<p>The default column separator is a comma; you can specify   a different one with the <code>--csv-separator</code> option.
+
+</li><li>
+<b>rdf</b>
+
+<p>   Writes the results into RDF/Turtle documents following the <a href="AudioFeatures">Audio Features ontology</a> (http://purl.org/ontology/af/).
+
+<p>   One file is created for each input audio file containing the   features extracted by all transforms applied to that file, named   after the input audio file with <code>.n3</code> extension, placed in the same    directory as the audio file.
+
+<p>   To instruct Sonic Annotator to place the output files in another   location, use <code>--rdf-basedir</code> with a directory name.
+
+<p>   To write a single file with all data (from all input audio files)   in it, use <code>--rdf-one-file</code>.
+
+<p>   To write one file for each transform applied to each input audio   file, named after the input audio file and transform name with <code>.n3</code>   suffix and ":" replaced by "_" throughout, use <code>--rdf-many-files</code>.
+
+<p>   To write all data to standard output instead of to a file, use <code>--rdf-stdout</code>.
+
+<p>   Sonic Annotator will not write to an output file that already   exists.  If you want to make it do this, use <code>--rdf-force</code> to   overwrite or <code>--rdf-append</code> to append to it.
+
+<p>   Sonic Annotator will use plugin description RDF if available to   enhance its output (for example identifying note onset times as   note onset times, if the plugin's RDF says that is what it   produces, rather than writing them as plain events).  Best results   will be obtained if an RDF document is provided with your plugins   (for example, <code>vamp-example-plugins.n3</code>) and you have this installed   in the same location as the plugins.  To override this enhanced   output and write plain events for all features, use <code>--rdf-plain</code>.
+
+<p>   The output RDF will include an <code>available_as</code> property linking the   results to the original audio signal URI.  By default, this will   point to the URI of the file or resource containing the audio that   Sonic Annotator processed, such as the <code>file:///</code> location on disk.   To override this, for example to process a local copy of a file   while generating RDF that describes a copy of it available on a   network, you can use the <code>--rdf-signal-uri</code> option to specify an   alternative signal URI.
+</ul>
+
+<h4>4. Optionally, how to summarise the features</h4>
+
+<p>Sonic Annotator can also calculate and write summaries of features, such as mean and median values.
+
+<p>To obtain a summary as well as the feature results, just use the <code>-S</code> option, naming the type of summary you want (<code>min</code>, <code>max</code>, <code>mean</code>, <code>median</code>, <code>mode</code>, <code>sum</code>, <code>variance</code>, <code>sd</code> or <code>count</code>).  You can also tell it to produce only the summary, not the individual features, with <code>--summary-only</code>.
+
+<p>Alternatively, you can specify a summary in a transform description. The following example tells Sonic Annotator to write both the times of note onsets estimated by the simple percussion onset detector example plugin, and the variance of the plugin's onset detection function.
+(It will only process the audio file and run the plugin once.)
+
+<pre>
+  @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;.
+  @prefix vamp: &lt;http://purl.org/ontology/vamp/&gt;.
+  @prefix examples: &lt;http://vamp-plugins.org/rdf/plugins/vamp-example-plugins#&gt;.
+  @prefix : <#>.
+
+  :transform1 a vamp:Transform;
+     vamp:plugin examples:percussiononsets ;
+     vamp:output examples:percussiononsets_output_onsets .
+
+  :transform2 a vamp:Transform;
+     vamp:plugin examples:percussiononsets ;
+     vamp:output examples:percussiononsets_output_detectionfunction ;
+     vamp:summary_type "variance" .
+</pre>
+
+<p>Sonic Annotator can also summarise in segments &mdash; if you provide a comma-separated list of times as an argument to the <code>--segments</code> option, it will calculate one summary for each segment bounded by the times you provided.  For example,
+
+<pre>
+  $ sonic-annotator -d vamp:vamp-example-plugins:percussiononsets:detectionfunction \
+    -S variance --sumary-only --segments 1,2,3 -w csv --csv-stdout audio.wav
+  (... some log output on stderr, then ...)
+  "audio.wav",0.000000000,1.000000000,variance,1723.99,"(variance, continuous-time average)"
+  ,1.000000000,1.000000000,variance,1981.75,"(variance, continuous-time average)"
+  ,2.000000000,1.000000000,variance,1248.79,"(variance, continuous-time average)"
+  ,3.000000000,7.031020407,variance,1030.06,"(variance, continuous-time average)"
+</pre>
+
+<p>Here the first row contains a summary covering the time period from 0 to 1 second, the second from 1 to 2 seconds, the third from 2 to 3 seconds and the fourth from 3 seconds to the end of the (short) audio file.
+
