@@ -310,3 +310,20 @@ a:hover {
     background-color: #ef6a35;
     color: #fff;
 }
+
+.no-results {
+    clear: both;
+    border-style: solid;
+    border-color: #ef6a35;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    margin-left: 4%;
+    margin-right: 5%;
+}
+
+.no-results p {
+    font-style: italic;
+}
+
