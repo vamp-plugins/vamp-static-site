@@ -26,6 +26,8 @@ body {
   padding-left: 2em;
   padding-right: 2em;
   color: #303030;
+  font-style: normal;
+  font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
 }
 p,td,ul,ol,li,blockquote { 
     font-size: 0.95em;
@@ -114,3 +116,214 @@ a:hover {
 .toc4 { 
   padding-left: 6em;
 }
+
+.pluginlist {
+    width: 100%;
+    margin-left: 0%;
+    margin-right: 0%;
+    clear: both;
+}
+
+.pluginlist > ul {
+    padding-left: 4%;
+    padding-right: 5%;
+}
+
+.library {
+    float: left;
+    clear: both;
+    width: 100%;
+    padding-top: 0.5em;
+    padding-bottom: 1.2em;
+    padding-left: 0;
+    padding-right: 0;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 2px;
+    border-bottom-width: 0px;
+    border-color: #ef6a35;
+    border-style: solid;
+}
+
+.library:last-child {
+    border-bottom-width: 2px;
+}
+
+.plugins {
+    padding-top: 1em;
+    padding-left: 0;
+}
+
+.plugins li, .library li {
+    padding-bottom: 0.5em;
+}
+
+.library-even {
+    background: #f0f0f0;
+}
+
+.library-odd {
+    background: #f8f8f8;
+}
+
+.pluginlist li {
+    list-style-type: none; 
+}
+
+.highlight {
+    background: yellow;
+}
+
+.plugs-showhide {
+  color: #ef6a35;
+  cursor: pointer;
+}    
+
+.maker-logo {
+    max-width: 4em;
+    max-height: 3.2em;
+    height: auto;
+    position: absolute;
+    right: 13%;
+}
+
+.plugin-piece {
+    max-width: 20px;
+    max-height: 20px;
+    width: auto;
+    float: left;
+}
+
+.plugin-name {
+    margin-top: 0.5em;
+}
+
+.plugin-name, .plugin-category, .plugin-description, .plugin-links {
+    margin-left: 24px;
+}
+
+.library-header {
+    padding-left: 1.5em;
+    padding-top: 0em;
+    padding-bottom: 0;
+    margin-bottom: 0em;
+    border-width: 0px;
+    border-bottom-width: 1px;
+    border-color: #ef6a35;
+    border-style: solid;
+    height: 3.5em;
+}
+
+.library-body {
+    padding-left: 1.5em;
+    margin-top: 1em;
+}
+
+.library-notes {
+    float: left;
+    width: 24%;
+}
+
+.library-main {
+    float: right;
+    width: 71%;
+    padding-right: 2%;
+}
+
+.library-name {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.library-maker {
+    font-size: 0.85em;
+}
+
+.library-description {
+}
+
+.plugs-showhide {
+}
+
+.default-hidden {
+    display: none;
+}
+
+.default-shown {
+    display: block;
+}
+
+.library-availability, .library-source-availability, .library-vampy, .library-links, .plugin-links, .plugin-category, .plugs-showhide {
+    font-size: 0.85em;
+}
+
+.library-availability, .library-source-availability {
+    color: #505050;
+}
+
+.plugin-name {
+    font-weight: bold;
+}
+
+.plugin-category {
+    color: #505050;
+    font-style: italic;
+}
+
+.search-form {
+    float: left;
+    padding-left: 4%;
+    font-size: 0.95em;
+}
+
+.platform-selector {
+    float: right;
+    margin-top: 3px;
+    margin-bottom: 2em;
+    padding-right: 5%;
+    font-size: 0.8em;
+}
+
+.platform-button {
+    border-style: solid;
+    padding: 0.3em;
+    margin: 0px;
+    border-left-width: 0px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-radius: 0px;
+    box-shadow: 0px 2px 0 0 #ef6a35;
+    border-color: #ef6a35;
+}
+
+.platform-button:first-child {
+    border-left-width: 1px;
+    margin-left: 0.6em;
+}
+
+.platform-button a {
+    color: #505050;
+}
+
+.platform-current, .platform-button:hover, .platform-button:hover a {
+    background-color: #ef6a35;
+    color: #fff;
+}
+
+.no-results {
+    clear: both;
+    border-style: solid;
+    border-color: #ef6a35;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    margin-left: 4%;
+    margin-right: 5%;
+}
+
+.no-results p {
+    font-style: italic;
+}
+
