@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <link rel="stylesheet" media="screen" type="text/css" href="screen.css"/>
+    <link rel="icon" type="image/png" href="images/waveform.png"/>
+    <link rel="shortcut" type="image/png" href="images/waveform.png"/>
+    <title>Vamp Plugins</title>
+    <meta name="robots" content="index"/>
+    <meta name="keywords" content="vamp plugin api plugins sonic visualiser visualizer visualise visualize audio music spectrogram feature extraction feapi vsi dssi"/>
+    <meta name="description" content="Vamp is a system for plugins that extract feature information from audio data."/>
+    <style type="text/css">h3 { clear: none; padding-top: 1em; border-top: 2px solid #ef6a35; } h3#firstnews { padding-top: 0.5em; border-top: 0px }</style>
+  </head>
+  <body>
+      <h1 id="header"><span>Vamp Plugins</span></h1>
+
+      <div id="nav">
+      <ul>
+      <li class="first"><a href="index.html">Home</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="download.html">Download Plugins</a></li>
+      <li><a href="develop.html">Make Plugins</a></li>
+      <li><a href="discuss.html">Discuss</a></li>
+      <li><a href="http://vamp-plugins.org/wiki/">Wiki</a></li>
+      </ul></div>
+
+      <h2 id="firstpara">News and updates</h2>
+
+      <p>News about Vamp Plugin SDK updates and some other relevant work.</p>
+      
+      <a name="20170303"></a>
+      <h3 id="firstnews">2017&ndash;03&ndash;03 &mdash; Vamp plugin SDK v2.7 now available</h3>
+
+      <p>Version 2.7 of the Vamp plugin SDK is now available.</p>
+
+      <p>Vamp is a plugin API for audio analysis and feature extraction plugins written in C or C++.&nbsp; Its SDK features an easy-to-use set of C++ classes for plugin and host developers, a reference host implementation, example plugins, and documentation.&nbsp; It is supported across Linux, OS/X, and Windows.</p>
+
+      <p>A documentation guide to writing plugins using the Vamp SDK can be found at <a href="http://www.vamp-plugins.org/guide.pdf" class="bbc_link" target="_blank">http://www.vamp-plugins.org/guide.pdf</a>.</p>
+
+      <p>Version 2.7 is a bugfix and minor enhancement release. For more details, see the changelog at</p>
+
+      <blockquote><a href="http://code.soundsoftware.ac.uk/projects/vamp-plugin-sdk/repository/entry/CHANGELOG" class="bbc_link" target="_blank">http://code.soundsoftware.ac.uk/projects/vamp-plugin-sdk/repository/entry/CHANGELOG</a></blockquote>
+      
+      <a name="20150909"></a>
+      <h3>2015&ndash;09&ndash;09 &mdash; jVamp v1.3 released</h3>
+
+      <p>Announcing v1.3 of jVamp, a Java/JNI interface allowing the use of native-code Vamp plugins from host applications written in Java or other JVM languages.</p>
+
+      <p>This release simplifies the API, removing an unnecessary dispose() call and eliminating a class of native-heap memory leak.</p>
+
+      <p>See <a href="https://code.soundsoftware.ac.uk/projects/jvamp" class="bbc_link" target="_blank">https://code.soundsoftware.ac.uk/projects/jvamp</a> for more details and downloads.</p>
+
+      <h3>2015&ndash;09&ndash;09 &mdash; Vamp Test Plugin v1.1 released</h3>
+
+      <p>Version 1.1 of Vamp Test Plugin, the world's least interesting Vamp plugin, is now available.</p>
+
+      <p>Vamp Test Plugin is the equivalent of a TV test signal: it produces a set of very simple static outputs intended to help the authors of Vamp hosts check that they are handling plugin output sample types correctly. This release adds an output which is calculated from the input (to facilitate testing that input blocks are provided correctly) and a frequency-domain version of the same.</p>
+
+      <p>See <a href="https://code.soundsoftware.ac.uk/projects/vamp-test-plugin" class="bbc_link" target="_blank">https://code.soundsoftware.ac.uk/projects/vamp-test-plugin</a> for more information.</p>
+
+      <p>If you are the author of a Vamp host, you might find it useful.</p>
+      
+      <h3>2015&ndash;09&ndash;09 &mdash; Vamp Plugin Tester v1.1 released</h3>
+      
+      <p>Version 1.1 of the Vamp plugin tester, a program that loads and tests Vamp plugins for various common failure cases, is now available.</p>
+
+      <p>Info and downloads:</p>
+
+      <blockquote><a href="https://code.soundsoftware.ac.uk/projects/vamp-plugin-tester" class="bbc_link" target="_blank">https://code.soundsoftware.ac.uk/projects/vamp-plugin-tester</a></blockquote>
+
+      <p>Change log:</p>
+
+      <blockquote><a href="https://code.soundsoftware.ac.uk/projects/vamp-plugin-tester/repository/entry/CHANGELOG" class="bbc_link" target="_blank">https://code.soundsoftware.ac.uk/projects/vamp-plugin-tester/repository/entry/CHANGELOG</a></blockquote>
+
+      <p>The tester can't check whether you're getting the right results, but it can help you write more resilient and better-behaved plugins. It's a really good idea to run the tester on any new plugin before you release it.</p>
+
+      <p>There is some documentation in the README file, but the short version is that you run it at a command prompt with the library name and plugin name, colon-separated, as an argument:</p>
+
+      <pre>$ ./vamp-plugin-tester vamp-example-plugins:spectralcentroid</pre>
+
+      <p>... and see what it has to say about your plugins.</p>
+
+      <p>If it crashes in the middle of one of its tests, that probably means that your plugin has crashed when faced with some unexpected input. Run it in a debugger, or a memory checking utility if you have one, to find out where.<br>
+
+        
+        
+      <a name="20150626"></a>
+      <h3>2015&ndash;06&ndash;26 &mdash; Python Vamp host v1.0 released</h3>
+      
+      <p>This week we released v1.0 of a Python module for loading and using Vamp plugins for audio analysis.</p>
+
+      <p>You can find it in PyPI:</p>
+
+      <blockquote><a href="https://pypi.python.org/pypi/vamp/" class="bbc_link" target="_blank">https://pypi.python.org/pypi/vamp/</a></blockquote>
+
+      <p>and the code project is here:</p>
+
+      <blockquote><a href="https://code.soundsoftware.ac.uk/projects/vampy-host" class="bbc_link" target="_blank">https://code.soundsoftware.ac.uk/projects/vampy-host</a></blockquote>
+
+      <a name="20150616"></a>
+      <h3>2015&ndash;06&ndash;16 &mdash; Vamp plugin SDK v2.6 now available</h3>
+
+      <p>Version 2.6 of the Vamp plugin SDK is now available.</p>
+
+      <p>Vamp is a plugin API for audio analysis and feature extraction plugins written in C or C++.&nbsp; Its SDK features an easy-to-use set of C++ classes for plugin and host developers, a reference host implementation, example plugins, and documentation.&nbsp; It is supported across Linux, OS/X, and Windows.</p>
+
+      <p>A documentation guide to writing plugins using the Vamp SDK can be found at <a href="http://www.vamp-plugins.org/guide.pdf" class="bbc_link" target="_blank">http://www.vamp-plugins.org/guide.pdf</a>.</p>
+
+      <p>Version 2.6 is a bugfix and minor enhancement release. For more details, see the changelog at</p>
+
+      <blockquote><a href="http://code.soundsoftware.ac.uk/projects/vamp-plugin-sdk/repository/entry/CHANGELOG" class="bbc_link" target="_blank">http://code.soundsoftware.ac.uk/projects/vamp-plugin-sdk/repository/entry/CHANGELOG</a></blockquote>
+
+      <a name="20130516"></a>
+      <h3>2013&ndash;05&ndash;16 &mdash; Vamp Test Plugin v1.0 released</h3>
+
+      <p>Version 1.0 of the Vamp Test Plugin is now available.</p>
+
+      <p>This, the world's least interesting Vamp plugin, is the equivalent of a TV test signal: it produces a set of very simple static outputs intended to help the authors of Vamp hosts check that they are handling plugin output sample types correctly.</p>
+
+      <p>See <a href="https://code.soundsoftware.ac.uk/projects/vamp-test-plugin" class="bbc_link" target="_blank">https://code.soundsoftware.ac.uk/projects/vamp-test-plugin</a> for more information.</p>
+
+      <p>If you are the author of a Vamp host, you might find it useful.</p>
+
+      
+      <a name="20130510"></a>
+      <h3>2013&ndash;05&ndash;10 &mdash; Vamp plugin SDK v2.5 now available</h3>
+
+      <p>Version 2.5 of the Vamp plugin SDK is now available.</p>
+
+      <p>Vamp is a plugin API for audio analysis and feature extraction plugins written in C or C++.&nbsp; Its SDK features an easy-to-use set of C++ classes for plugin and host developers, a reference host implementation, example plugins, and documentation.&nbsp; It is supported across Linux, OS/X, and Windows.</p>
+
+      <p>A documentation guide to writing plugins using the Vamp SDK can be found at <a href="http://www.vamp-plugins.org/guide.pdf" class="bbc_link" target="_blank">http://www.vamp-plugins.org/guide.pdf</a>.</p>
+
+      <p>Version 2.5 is a bugfix release. For more details, see the changelog at</p>
+
+      <blockquote><a href="http://code.soundsoftware.ac.uk/projects/vamp-plugin-sdk/repository/entry/CHANGELOG" class="bbc_link" target="_blank">http://code.soundsoftware.ac.uk/projects/vamp-plugin-sdk/repository/entry/CHANGELOG</a></blockquote>
+
+      <p>The most significant fix in this release is in the host SDK, and affects the handling of output timestamps in the (little used) FixedSampleRate output type.</p>
+
+      <a name="20091028"></a>
+      <h3>2012&ndash;11&ndash;23 &mdash; jVamp: Vamp plugins in Java applications</h3>
+
+      <p>jVamp is a JNI (Java Native Interface) library that permits Java applications to load and use Vamp audio analysis plugins.</p>
+
+      <p>jVamp is intended for application developers who are interested in adding capabilities to Java applications or a Java environment; it's not currently something that an end-user would normally wish to install. But if you are working in Java, you might well find it interesting.</p>
+
+      <p>Note that jVamp is intended to be compatible with the Android NDK as well as desktop Java, though it hasn't been tested there (and existing binary distributions of plugins do not usually include ARM builds).</p>
+
+      <p>See <a href="http://code.soundsoftware.ac.uk/projects/jvamp" class="bbc_link" target="_blank">http://code.soundsoftware.ac.uk/projects/jvamp</a> for more information.</p>
+      
+      <a name="20091028"></a>
+      <h3>2009&ndash;10&ndash;28 &mdash; VamPy: Vamp plugins in Python</h3>
+
+      <p>VamPy, a Python wrapper for the Vamp plugin API, is now available.</p>
+
+      <p>Using VamPy you can write audio analysis or visualisation plugins for use in Vamp hosts with a quick and dynamic environment that is somewhat like working in Matlab or other high-level modelling environments. &nbsp;VamPy has full two-way support for NumPy, an efficient numerical library for Python, and for the dynamic typing of Python.</p>
+
+      <p>You can download VamPy from :<br><a href="http://www.vamp-plugins.org/vampy.html" class="bbc_link" target="_blank">http://www.vamp-plugins.org/vampy.html</a></p>
+
+      <a name="20091002"></a>
+      <h3>2009&ndash;10&ndash;02 &mdash; New tutorials about how to get your first plugin to compile</h3>
+
+      <p>There are two new tutorials now available on the (also new) wiki at this site, both entitled "From Method To Plugin" and describing how to get your code compiled and running as a Vamp plugin.&nbsp; One tutorial covers OS/X, the other Windows.</p>
+
+      <p><ul class="bbc_list"><li>Using OS/X command-line tools: <a href="http://vamp-plugins.org/wiki/mtp1" class="bbc_link" target="_blank">http://vamp-plugins.org/wiki/mtp1</a></li><li>Using Visual C++ on Windows: <a href="http://vamp-plugins.org/wiki/mtp2" class="bbc_link" target="_blank">http://vamp-plugins.org/wiki/mtp2</a></li></ul><p>I hope these are helpful!&nbsp; If you find any errors, please let me know (or create an account on the wiki and correct them!)</p>
+
+      <p>The wiki homepage is at <a href="http://vamp-plugins.org/wiki/" class="bbc_link" target="_blank">http://vamp-plugins.org/wiki/</a>, and we'd welcome any contributions that might be interesting to other users or developers of plugins.</p>
+      
+      <a name="20081212"></a>
+      <h3>2008&ndash;12&ndash;12 &mdash; Vamp plugin SDK v2.0 now available</h3>
+
+      <p>Version 2.0 of the Vamp plugin SDK is now available.</p>
+
+      <p>Vamp is a plugin API for audio analysis and feature extraction plugins written in C or C++.  Its SDK features an easy-to-use set of C++ classes for plugin and host developers, a reference host implementation, example plugins, and documentation.  It is supported across Linux, OS/X and Windows.</p>
+
+      <p>A documentation guide to writing plugins using the Vamp SDK can be found at <a href="http://www.vamp-plugins.org/guide.pdf">http://www.vamp-plugins.org/guide.pdf</a>.</p>
+
+      <h5>What's new in 2.0?</h5>
+
+      <ul>
+        <li>Each returned feature can now specify a proper duration as well as start time, value array, and label.</li>
+        <li>A new PluginSummarisingAdapter is provided in the host SDK, permitting hosts to easily obtain summary results such as averages based on a plugin's returned features.</li>
+        <li>An RDF ontology is provided for the description of Vamp plugin capabilities and configurations (see <a href="http://omras2.org/VampOntology">http://omras2.org/VampOntology</a>).</li>
+        <li>The SDK libraries have been reorganised so as to draw a clearer distinction between plugin and host SDKs.</li>
+        <li>Better platform-specific build documentation is provided (in the build directory), particularly for MSVC builds which now also feature project files for the example plugins.</li>
+        <li>Two new example plugins have been added (Simple Power Spectrum and Fixed Tempo Estimator).</li>
+        <li>The command-line host provided now has an extra-informative plugin information listing option (<code>--list-full</code>).</li>
+      </ul>
+
+      <h5>Backward compatibility</h5>
+
+      <p>A detailed compatibility statement is included in the SDK, but to summarise:</p>
+      
+      <ul><li>Plugins and hosts built with 1.x and 2.0 SDKs are mutually compatible.  You can load old plugins in new hosts and new plugins in old hosts.</li>
+        <li>Plugins written for 1.x can be compiled against 2.0 without modification.</li>
+        <li>Hosts written for 1.x will require some changes to #include directives, but most hosts should compile against 2.0 without other modifications.</li>
+        <li>Although the plugin binary interface is compatible with 1.x, the SDK libraries are not binary compatible with the 1.x libraries. Plugins and host code will need to be recompiled if they are to be updated to 2.0, not just re-linked.</li>
+      </ul>
+      
+      <a name="20080709"></a>
+      <h3>2008&ndash;07&ndash;09 &mdash; Vamp plugin SDK v1.3 now available</h3>
+
+      <p>Version 1.3 of the Vamp plugin SDK is now available.</p>
+
+      <p>Vamp is a plugin API for audio analysis and feature extraction plugins written in C or C++.&nbsp; Its SDK features an easy-to-use set of C++ classes for plugin and host developers, a reference host implementation, example plugins, and documentation.&nbsp; It is supported across Linux, OS/X and Windows.</p>
+
+      <p>Version 1.3 is a maintenance release, with several bugfixes (almost all of which only affect hosts, not plugins) and no new features.</p>
+
+      <p>Changes since 1.2:</p>
+
+      <ul class="bbc_list"><li> PluginBufferingAdapter has several important fixes to bugs that could cause incorrect timings or output descriptors to be returned</li><li> Conversion between real-time and frames has been improved to avoid rounding error in round-trip calculations</li><li> Plugin lookup no longer relies on non-portable DT_REG</li><li> The SDK now compiles with gcc 4.3</li></ul><p>Plugins and hosts remain binary compatible with those built using the 1.0 version of the SDK.</p>
+      
+      <a name="20080305"></a>
+      <h3>2008&ndash;03&ndash;05 &mdash; New developer documentation available</h3>
+
+      <p>A new guide to writing Vamp plugins in C++ is now up on the website.
+        You can get to it from the developer documentation page:</p>
+
+      <blockquote><a href="http://www.vamp-plugins.org/develop.html">http://www.vamp-plugins.org/develop.html</a></blockquote>
+      
+      <p>or this direct link:</p>
+
+      <blockquote><a href="http://www.vamp-plugins.org/guide.pdf">http://www.vamp-plugins.org/guide.pdf</a></blockquote>
+      
+      <p>No big claims for how well organised, written, or (especially!) illustrated it is, but there is a decent amount of information in it and it's likely to be mostly right.</p>
+
+      <p>There is also a recent introductory presentation available here:</p>
+
+      <blockquote><a href="http://www.vamp-plugins.org/vamp-programmer-presentation.pdf">http://www.vamp-plugins.org/vamp-programmer-presentation.pdf</a></blockquote>
+      
+      <a name="20080228"></a>
+      <h3>2008&ndash;02&ndash;28 &mdash; Vamp plugin SDK v1.2 now available</h3>
+
+      <p>Version 1.2 of the Vamp plugin SDK is now available.</p>
+
+      <p>Vamp is a plugin API for audio analysis and feature extraction plugins written in C or C++.&nbsp; Its SDK features an easy-to-use set of C++ classes for plugin and host developers, a reference host implementation, example plugins, and documentation.&nbsp; It is supported across Linux, OS/X and Windows.</p>
+
+      <p>Version 1.2 contains a further addition to the host extension classes introduced in 1.1: a buffering adapter that hosts may use to avoid having to negotiate the plugin's preferred input step and block sizes.&nbsp; This release also includes a Visual C++ project file as well as Makefiles tailored to Linux and OS/X.</p>
+
+      <p>Plugins and hosts remain 100% binary compatible with those built using the 1.0 version of the SDK.</p>
+      
+      <a name="20071019"></a>
+      <h3>2007&ndash;10&ndash;19 &mdash; Vamp plugin SDK v1.1b now available</h3>
+
+      <p>Version 1.1b of the Vamp plugin SDK is now available.</p>
+
+      <p>Vamp is a plugin API for audio analysis and feature extraction plugins written in C or C++.&nbsp; Its SDK features an easy-to-use set of C++ classes for plugin and host developers, a reference host implementation, example plugins, and documentation.&nbsp; It is supported across Linux, OS/X and Windows.</p>
+
+      <p>Version 1.1b is a minor update with a small number of build and bug fixes.</p>
+
+      <p>The prior version 1.1 of the SDK introduced a new set of classes designed to make it very simple for an application to use Vamp plugins, without needing to do complicated plugin lookup or audio processing themselves.</p>
+
+      <p>Plugins and hosts remain 100% binary compatible with those built using the 1.0 version of the SDK.</p>
+      
+    </body>
+</html>
