@@ -36,7 +36,7 @@
 
       <p>Read the <a href="https://code.soundsoftware.ac.uk/projects/vampy/repository/entry/README">README file</a> for VamPy, or read an <a href="https://code.soundsoftware.ac.uk/projects/vampy/repository/entry/Example%20VamPy%20plugins/PySpectralFeatures.py">example Python plugin</a>.
 
-      <p><b>To use VamPy</b>, just download the VamPy wrapper plugin
+      <p><b>To use VamPy</b>, download the VamPy wrapper plugin
       compiled for your platform, copy it to your Vamp plugin
       location, and copy any VamPy scripts &ndash; some examples are
       included &ndash; into the same place.  Then just run your normal
@@ -44,35 +44,44 @@
       <a href="download.html#install">How to Install</a> for details
       of the Vamp plugin installation location on your system.)</p>
 
-           <p>Do check that you have a compatible version of Python:
-      the README files in the VamPy package will tell you what
-      versions are supported.  You're also strongly advised to
-      install <a href="http://numpy.scipy.org">NumPy</a>.</p>
+      <p>You will need to make sure you have a compatible version of
+      Python installed: currently this means Python 2.7. Also you are
+      strongly advised to
+      install <a href="http://numpy.scipy.org">NumPy</a>, as most
+      plugins use a part of the VamPy interface which depends on
+      it.</p>
 
       <h3>Downloads</h3>
 
+      <p>Pick the relevant Download link for your platform. Note that
+      on Windows, you must use the build (32- or 64-bit) which matches
+      the version of Python you have. If you are using a 32-bit Python
+      build, then you must use the 32-bit VamPy and install it to the
+      32-bit Vamp plugin location, even if you are doing so on a
+      64-bit copy of Windows.</p>
+      
       <table align=center border=1 cellpadding=5>
 
-      <tr><td><b>Version</b></td><td><b>Linux</b></td><td><b>OS/X</b></td><td><b>Windows</b></td><td><b>Solaris/x86</b></td><td><b>Source&nbsp;code</b></td></tr>
+      <tr><td><b>Version</b></td><td><b>Linux (64-bit)</b></td><td><b>macOS</b></td><td><b>Windows (32-bit)</b></td><td><b>Windows (64-bit)</b></td><td><b>Source&nbsp;code</b></td></tr>
 
       <tr>
 
-      <td><small>2.0</small></td>
+      <td>2.1</td>
 
-      <td><small><a href="http://code.soundsoftware.ac.uk/attachments/download/676/vampy-2.0-i386-linux.tar.bz2">Download</a> (32&nbsp;bit)<br><a href="http://code.soundsoftware.ac.uk/attachments/download/670/vampy-2.0-amd64-linux.tar.bz2">Download</a> (64&nbsp;bit)<br></small></td>
+      <td><a href="https://code.soundsoftware.ac.uk/attachments/download/2444/vampy-2.1-linux64.tar.bz2">Download</a></td>
 
-      <td><small><a href="http://code.soundsoftware.ac.uk/attachments/download/674/vampy-2.0-osx-108.tar.bz2">Download</a> (OS/X 10.8+ 64-bit)<br><a href="http://code.soundsoftware.ac.uk/attachments/download/675/vampy-2.0-osx-universal.tar.bz2">Download</a> (OS/X 10.4+ 32-bit)</small></td>
+      <td><a href="https://code.soundsoftware.ac.uk/attachments/download/2440/vampy-2.1-macos.tar.bz2">Download</a></td>
 
-      <td><small><a href="http://code.soundsoftware.ac.uk/attachments/download/673/vampy-2.0-win32.zip">Download</a></small></td>
+      <td><a href="https://code.soundsoftware.ac.uk/attachments/download/2441/vampy-2.1-win32.zip">Download</a></td>
 
-      <td><small><a href="http://code.soundsoftware.ac.uk/attachments/download/671/vampy-2.0-i386-solaris.tar.bz2">Download</a></small></td>
+      <td><a href="https://code.soundsoftware.ac.uk/attachments/download/2443/vampy-2.1-win64.zip">Download</a></td>
 
-      <td><small><a href="http://code.soundsoftware.ac.uk/attachments/download/672/vampy-2.0.tar.bz2">Download</a><br>or&nbsp;<a href="https://code.soundsoftware.ac.uk/projects/vampy/repository">Browse</a></small></td></tr>
+      <td><a href="https://code.soundsoftware.ac.uk/attachments/download/2445/vampy-2.1-source.tar.gz">Download</a><br>or&nbsp;<a href="https://code.soundsoftware.ac.uk/projects/vampy/repository">Browse</a></td></tr>
 
       </table>
 
       <p>Although the VamPy wrapper plugin itself is
-      platform-dependent (so you must download the right one of the
+      platform-dependent (so you must download the correct one of the
       plugins listed above!), the Python scripts themselves are
       portable across platforms.  Publishing a VamPy plugin in Python
       could be the simplest way to make a Vamp plugin available to the
