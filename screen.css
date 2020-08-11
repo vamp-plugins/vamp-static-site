@@ -336,3 +336,9 @@ a:hover {
     font-style: italic;
 }
 
+table.downloads, table.downloads th, table.downloads td {
+  border: 1px solid #505050;
+  padding: 0.7em;
+  border-collapse: collapse;
+}
+
