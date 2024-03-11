@@ -25,9 +25,22 @@
       <h2 id="firstpara">News and updates</h2>
 
       <p>News about Vamp Plugin SDK updates and some other relevant work.</p>
+
+      <a name="20200518"></a>
+      <h3 id="firstnews">2020&ndash;05&ndash;18 &mdash; Vamp plugin SDK v2.10 now available</h3>
+
+      <p>Version 2.10 of the Vamp plugin SDK is now available.</p>
+
+      <p>This release adds a method to <code>PluginWrapper</code>, the
+        host-side base for adapters that modify the processing
+        behaviour of a plugin, that tells it to "disown" the wrapped
+        plugin. The former behaviour, and still the default, is for
+        the wrapper to take ownership of the wrapped plugin. The
+        alternative behaviour makes it easier to mix these classes
+        with some modern C++ styles that use managed pointers.</p>
       
       <a name="20191113"></a>
-      <h3 id="firstnews">2019&ndash;11&ndash;13 &mdash; Vamp plugin SDK v2.9 now available</h3>
+      <h3>2019&ndash;11&ndash;13 &mdash; Vamp plugin SDK v2.9 now available</h3>
       
       <p>Version 2.9 of the Vamp plugin SDK is now available.</p>
 
